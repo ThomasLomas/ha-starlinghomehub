@@ -1,5 +1,5 @@
 {
-    "name": "Integration blueprint",
+    "name": "Starling Dev Connect Integration",
     "filename": "starlingdevconnect.zip",
     "hide_default_branch": true,
     "homeassistant": "2024.1.6",
