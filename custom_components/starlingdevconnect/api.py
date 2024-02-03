@@ -8,34 +8,34 @@ import aiohttp
 import async_timeout
 
 
-class IntegrationBlueprintApiClientError(Exception):
+class StarlingDevConnectApiClientError(Exception):
     """Exception to indicate a general API error."""
 
 
-class IntegrationBlueprintApiClientCommunicationError(
-    IntegrationBlueprintApiClientError
+class StarlingDevConnectApiClientCommunicationError(
+    StarlingDevConnectApiClientError
 ):
     """Exception to indicate a communication error."""
 
 
-class IntegrationBlueprintApiClientAuthenticationError(
-    IntegrationBlueprintApiClientError
+class StarlingDevConnectApiClientAuthenticationError(
+    StarlingDevConnectApiClientError
 ):
     """Exception to indicate an authentication error."""
 
 
-class IntegrationBlueprintApiClient:
-    """Sample API Client."""
+class StarlingDevConnectApiClient:
+    """Starling Dev Connect API Client."""
 
     def __init__(
         self,
-        username: str,
-        password: str,
+        url: str,
+        api_key: str,
         session: aiohttp.ClientSession,
     ) -> None:
         """Sample API Client."""
-        self._username = username
-        self._password = password
+        self._url = url
+        self._api_key = api_key
         self._session = session
 
     async def async_get_data(self) -> any:
@@ -70,21 +70,21 @@ class IntegrationBlueprintApiClient:
                     json=data,
                 )
                 if response.status in (401, 403):
-                    raise IntegrationBlueprintApiClientAuthenticationError(
+                    raise StarlingDevConnectApiClientAuthenticationError(
                         "Invalid credentials",
                     )
                 response.raise_for_status()
                 return await response.json()
 
         except asyncio.TimeoutError as exception:
-            raise IntegrationBlueprintApiClientCommunicationError(
+            raise StarlingDevConnectApiClientCommunicationError(
                 "Timeout error fetching information",
             ) from exception
         except (aiohttp.ClientError, socket.gaierror) as exception:
-            raise IntegrationBlueprintApiClientCommunicationError(
+            raise StarlingDevConnectApiClientCommunicationError(
                 "Error fetching information",
             ) from exception
         except Exception as exception:  # pylint: disable=broad-except
-            raise IntegrationBlueprintApiClientError(
+            raise StarlingDevConnectApiClientError(
                 "Something really wrong happened!"
             ) from exception

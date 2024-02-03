@@ -1,0 +1,18 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "description": "You can get these settings from http://setup.starlinghome.io/ The URL should be something like http://192.168.1.100:3080/api/connect/v1/ If you need help with the configuration have a look here: https://github.com/ThomasLomas/ha-starlingdevconnect",
+                "data": {
+                    "url": "Starling Dev Connect API URL",
+                    "api_key": "API Key"
+                }
+            }
+        },
+        "error": {
+            "auth": "API Key is wrong.",
+            "connection": "Unable to connect to the server.",
+            "unknown": "Unknown error occurred."
+        }
+    }
+}

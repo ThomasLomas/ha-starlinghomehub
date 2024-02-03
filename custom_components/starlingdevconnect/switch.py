@@ -1,15 +1,15 @@
-"""Switch platform for integration_blueprint."""
+"""Switch platform for starlingdevconnect."""
 from __future__ import annotations
 
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 
 from .const import DOMAIN
-from .coordinator import BlueprintDataUpdateCoordinator
-from .entity import IntegrationBlueprintEntity
+from .coordinator import StarlingDevConnectDataUpdateCoordinator
+from .entity import StarlingDevConnectEntity
 
 ENTITY_DESCRIPTIONS = (
     SwitchEntityDescription(
-        key="integration_blueprint",
+        key="starlingdevconnect",
         name="Integration Switch",
         icon="mdi:format-quote-close",
     ),
@@ -20,7 +20,7 @@ async def async_setup_entry(hass, entry, async_add_devices):
     """Set up the sensor platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_devices(
-        IntegrationBlueprintSwitch(
+        StarlingDevConnectSwitch(
             coordinator=coordinator,
             entity_description=entity_description,
         )
@@ -28,12 +28,12 @@ async def async_setup_entry(hass, entry, async_add_devices):
     )
 
 
-class IntegrationBlueprintSwitch(IntegrationBlueprintEntity, SwitchEntity):
-    """integration_blueprint switch class."""
+class StarlingDevConnectSwitch(StarlingDevConnectEntity, SwitchEntity):
+    """starlingdevconnect switch class."""
 
     def __init__(
         self,
-        coordinator: BlueprintDataUpdateCoordinator,
+        coordinator: StarlingDevConnectDataUpdateCoordinator,
         entity_description: SwitchEntityDescription,
     ) -> None:
         """Initialize the switch class."""

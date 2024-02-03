@@ -1,4 +1,4 @@
-"""DataUpdateCoordinator for integration_blueprint."""
+"""DataUpdateCoordinator for starlingdevconnect."""
 from __future__ import annotations
 
 from datetime import timedelta
@@ -12,15 +12,15 @@ from homeassistant.helpers.update_coordinator import (
 from homeassistant.exceptions import ConfigEntryAuthFailed
 
 from .api import (
-    IntegrationBlueprintApiClient,
-    IntegrationBlueprintApiClientAuthenticationError,
-    IntegrationBlueprintApiClientError,
+    StarlingDevConnectApiClient,
+    StarlingDevConnectApiClientAuthenticationError,
+    StarlingDevConnectApiClientError,
 )
 from .const import DOMAIN, LOGGER
 
 
 # https://developers.home-assistant.io/docs/integration_fetching_data#coordinated-single-api-poll-for-data-for-all-entities
-class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
+class StarlingDevConnectDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
     config_entry: ConfigEntry
@@ -28,7 +28,7 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
     def __init__(
         self,
         hass: HomeAssistant,
-        client: IntegrationBlueprintApiClient,
+        client: StarlingDevConnectApiClient,
     ) -> None:
         """Initialize."""
         self.client = client
@@ -43,7 +43,7 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
         """Update data via library."""
         try:
             return await self.client.async_get_data()
-        except IntegrationBlueprintApiClientAuthenticationError as exception:
+        except StarlingDevConnectApiClientAuthenticationError as exception:
             raise ConfigEntryAuthFailed(exception) from exception
-        except IntegrationBlueprintApiClientError as exception:
+        except StarlingDevConnectApiClientError as exception:
             raise UpdateFailed(exception) from exception

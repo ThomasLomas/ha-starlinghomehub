@@ -1,15 +1,15 @@
-"""Sensor platform for integration_blueprint."""
+"""Sensor platform for starlingdevconnect."""
 from __future__ import annotations
 
 from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
 
 from .const import DOMAIN
-from .coordinator import BlueprintDataUpdateCoordinator
-from .entity import IntegrationBlueprintEntity
+from .coordinator import StarlingDevConnectDataUpdateCoordinator
+from .entity import StarlingDevConnectEntity
 
 ENTITY_DESCRIPTIONS = (
     SensorEntityDescription(
-        key="integration_blueprint",
+        key="starlingdevconnect",
         name="Integration Sensor",
         icon="mdi:format-quote-close",
     ),
@@ -20,7 +20,7 @@ async def async_setup_entry(hass, entry, async_add_devices):
     """Set up the sensor platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_devices(
-        IntegrationBlueprintSensor(
+        StarlingDevConnectSensor(
             coordinator=coordinator,
             entity_description=entity_description,
         )
@@ -28,12 +28,12 @@ async def async_setup_entry(hass, entry, async_add_devices):
     )
 
 
-class IntegrationBlueprintSensor(IntegrationBlueprintEntity, SensorEntity):
-    """integration_blueprint Sensor class."""
+class StarlingDevConnectSensor(StarlingDevConnectEntity, SensorEntity):
+    """starlingdevconnect Sensor class."""
 
     def __init__(
         self,
-        coordinator: BlueprintDataUpdateCoordinator,
+        coordinator: StarlingDevConnectDataUpdateCoordinator,
         entity_description: SensorEntityDescription,
     ) -> None:
         """Initialize the sensor class."""
