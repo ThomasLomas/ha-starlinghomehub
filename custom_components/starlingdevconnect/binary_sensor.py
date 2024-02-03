@@ -14,7 +14,7 @@ from .entity import IntegrationBlueprintEntity
 ENTITY_DESCRIPTIONS = (
     BinarySensorEntityDescription(
         key="starlingdevconnect",
-        name="Integration Blueprint Binary Sensor",
+        name="Starling Dev Connect Integration Binary Sensor",
         device_class=BinarySensorDeviceClass.CONNECTIVITY,
     ),
 )

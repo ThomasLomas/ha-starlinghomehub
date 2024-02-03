@@ -4,13 +4,13 @@
             "user": {
                 "description": "If you need help with the configuration have a look here: https://github.com/ThomasLomas/ha-starlingdevconnect",
                 "data": {
-                    "username": "Username",
-                    "password": "Password"
+                    "url": "Starling Dev Connect API URL",
+                    "api_key": "API Key"
                 }
             }
         },
         "error": {
-            "auth": "Username/Password is wrong.",
+            "auth": "API Key is wrong.",
             "connection": "Unable to connect to the server.",
             "unknown": "Unknown error occurred."
         }

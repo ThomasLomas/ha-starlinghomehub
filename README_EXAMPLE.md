@@ -1,4 +1,4 @@
-# Integration Blueprint
+# Starling Dev Connect Integration
 
 _Integration to integrate with [starlingdevconnect][starlingdevconnect]._
 
@@ -18,7 +18,7 @@ Platform | Description
 1. Download _all_ the files from the `custom_components/starlingdevconnect/` directory (folder) in this repository.
 1. Place the files you downloaded in the new directory (folder) you created.
 1. Restart Home Assistant
-1. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Integration blueprint"
+1. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Starling Dev Connect Integration"
 
 ## Configuration is done in the UI
 
