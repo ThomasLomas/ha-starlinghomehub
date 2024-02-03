@@ -1,6 +1,6 @@
 {
     "name": "Starling Dev Connect",
-    "filename": "starling_dev_connect.zip",
+    "filename": "starlingdevconnect.zip",
     "hide_default_branch": true,
     "homeassistant": "2024.1.6",
     "render_readme": true,
