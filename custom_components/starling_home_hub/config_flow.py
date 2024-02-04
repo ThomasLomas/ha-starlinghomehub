@@ -77,4 +77,15 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             api_key=api_key,
             session=async_create_clientsession(self.hass),
         )
-        await client.async_get_data()
+
+        status_body = await client.async_get_status()
+
+        if not status_body["apiReady"]:
+            raise StarlingHomeHubApiClientCommunicationError(
+                "Starling reporting that API is not ready"
+            )
+
+        if not status_body["permissions"]["read"]:
+            raise StarlingHomeHubApiClientAuthenticationError(
+                "API Key does not have read permissions",
+            )

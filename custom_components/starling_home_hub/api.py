@@ -38,10 +38,13 @@ class StarlingHomeHubApiClient:
         self._api_key = api_key
         self._session = session
 
-    async def async_get_data(self) -> any:
-        """Get data from the API."""
+    def get_api_url_for_endpoint(self, endpoint: str) -> str:
+        return self._url + endpoint + "?key=" + self._api_key
+
+    async def async_get_status(self) -> any:
+        """Get status from the API."""
         return await self._api_wrapper(
-            method="get", url="https://jsonplaceholder.typicode.com/posts/1"
+            method="get", url=self.get_api_url_for_endpoint("status")
         )
 
     async def async_set_title(self, value: str) -> any:
@@ -84,6 +87,8 @@ class StarlingHomeHubApiClient:
             raise StarlingHomeHubApiClientCommunicationError(
                 "Error fetching information",
             ) from exception
+        except StarlingHomeHubApiClientAuthenticationError as exception:
+            raise exception
         except Exception as exception:  # pylint: disable=broad-except
             raise StarlingHomeHubApiClientError(
                 "Something really wrong happened!"

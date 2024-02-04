@@ -42,7 +42,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         """Update data via library."""
         try:
-            return await self.client.async_get_data()
+            return await self.client.async_get_status()
         except StarlingHomeHubApiClientAuthenticationError as exception:
             raise ConfigEntryAuthFailed(exception) from exception
         except StarlingHomeHubApiClientError as exception:
