@@ -1,4 +1,4 @@
-"""Sample API Client."""
+"""Starling Home Hub Developer Connect API Client."""
 from __future__ import annotations
 
 import asyncio
@@ -8,40 +8,44 @@ import aiohttp
 import async_timeout
 
 
-class IntegrationBlueprintApiClientError(Exception):
+class StarlingHomeHubApiClientError(Exception):
     """Exception to indicate a general API error."""
 
 
-class IntegrationBlueprintApiClientCommunicationError(
-    IntegrationBlueprintApiClientError
+class StarlingHomeHubApiClientCommunicationError(
+    StarlingHomeHubApiClientError
 ):
     """Exception to indicate a communication error."""
 
 
-class IntegrationBlueprintApiClientAuthenticationError(
-    IntegrationBlueprintApiClientError
+class StarlingHomeHubApiClientAuthenticationError(
+    StarlingHomeHubApiClientError
 ):
     """Exception to indicate an authentication error."""
 
 
-class IntegrationBlueprintApiClient:
-    """Sample API Client."""
+class StarlingHomeHubApiClient:
+    """Starling Home Hub Developer Connect API Client."""
 
     def __init__(
         self,
-        username: str,
-        password: str,
+        url: str,
+        api_key: str,
         session: aiohttp.ClientSession,
     ) -> None:
-        """Sample API Client."""
-        self._username = username
-        self._password = password
+        """Starling Home Hub Developer Connect API Client."""
+        self._url = url
+        self._api_key = api_key
         self._session = session
 
-    async def async_get_data(self) -> any:
-        """Get data from the API."""
+    def get_api_url_for_endpoint(self, endpoint: str) -> str:
+        """Build URL for the API."""
+        return self._url + endpoint + "?key=" + self._api_key
+
+    async def async_get_status(self) -> any:
+        """Get status from the API."""
         return await self._api_wrapper(
-            method="get", url="https://jsonplaceholder.typicode.com/posts/1"
+            method="get", url=self.get_api_url_for_endpoint("status")
         )
 
     async def async_set_title(self, value: str) -> any:
@@ -70,21 +74,23 @@ class IntegrationBlueprintApiClient:
                     json=data,
                 )
                 if response.status in (401, 403):
-                    raise IntegrationBlueprintApiClientAuthenticationError(
+                    raise StarlingHomeHubApiClientAuthenticationError(
                         "Invalid credentials",
                     )
                 response.raise_for_status()
                 return await response.json()
 
         except asyncio.TimeoutError as exception:
-            raise IntegrationBlueprintApiClientCommunicationError(
+            raise StarlingHomeHubApiClientCommunicationError(
                 "Timeout error fetching information",
             ) from exception
         except (aiohttp.ClientError, socket.gaierror) as exception:
-            raise IntegrationBlueprintApiClientCommunicationError(
+            raise StarlingHomeHubApiClientCommunicationError(
                 "Error fetching information",
             ) from exception
+        except StarlingHomeHubApiClientAuthenticationError as exception:
+            raise exception
         except Exception as exception:  # pylint: disable=broad-except
-            raise IntegrationBlueprintApiClientError(
+            raise StarlingHomeHubApiClientError(
                 "Something really wrong happened!"
             ) from exception
