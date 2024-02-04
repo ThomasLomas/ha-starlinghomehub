@@ -2,16 +2,16 @@
     "config": {
         "step": {
             "user": {
-                "description": "If you need help with the configuration have a look here: https://github.com/ThomasLomas/starling_home_hub",
+                "description": "For the URL you are looking for something like this \"http://192.168.1.100:3080/api/connect/v1/\" If you need help with the configuration have a look here: https://github.com/ThomasLomas/ha-starlinghomehub",
                 "data": {
-                    "username": "Username",
-                    "password": "Password"
+                    "url": "Local Developer Connect URL",
+                    "api_key": "API Key"
                 }
             }
         },
         "error": {
-            "auth": "Username/Password is wrong.",
-            "connection": "Unable to connect to the server.",
+            "auth": "API Key is wrong.",
+            "connection": "Unable to connect to the hub.",
             "unknown": "Unknown error occurred."
         }
     }
