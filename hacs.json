@@ -1,6 +1,6 @@
 {
-    "name": "Starling Dev Connect Integration",
-    "filename": "starlingdevconnect.zip",
+    "name": "Starling Home Hub Integration",
+    "filename": "starling_home_hub.zip",
     "hide_default_branch": true,
     "homeassistant": "2024.1.6",
     "render_readme": true,

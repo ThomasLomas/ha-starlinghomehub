@@ -1,7 +1,7 @@
-"""Custom integration to integrate starlingdevconnect with Home Assistant.
+"""Custom integration to integrate starling_home_hub with Home Assistant.
 
 For more details about this integration, please refer to
-https://github.com/ThomasLomas/starlingdevconnect
+https://github.com/ThomasLomas/starling_home_hub
 """
 from __future__ import annotations
 

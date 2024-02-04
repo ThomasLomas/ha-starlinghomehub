@@ -1,4 +1,4 @@
-"""DataUpdateCoordinator for starlingdevconnect."""
+"""DataUpdateCoordinator for starling_home_hub."""
 from __future__ import annotations
 
 from datetime import timedelta

@@ -1,0 +1,12 @@
+{
+  "domain": "starling_home_hub",
+  "name": "Starling Dev Connect Integration",
+  "codeowners": [
+    "@ThomasLomas"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/ThomasLomas/ha-starling_home_hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/ThomasLomas/ha-starling_home_hub/issues",
+  "version": "0.0.0"
+}

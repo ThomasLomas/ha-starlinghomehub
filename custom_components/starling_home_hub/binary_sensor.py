@@ -1,4 +1,4 @@
-"""Binary sensor platform for starlingdevconnect."""
+"""Binary sensor platform for starling_home_hub."""
 from __future__ import annotations
 
 from homeassistant.components.binary_sensor import (
@@ -13,7 +13,7 @@ from .entity import IntegrationBlueprintEntity
 
 ENTITY_DESCRIPTIONS = (
     BinarySensorEntityDescription(
-        key="starlingdevconnect",
+        key="starling_home_hub",
         name="Integration Blueprint Binary Sensor",
         device_class=BinarySensorDeviceClass.CONNECTIVITY,
     ),
@@ -33,7 +33,7 @@ async def async_setup_entry(hass, entry, async_add_devices):
 
 
 class IntegrationBlueprintBinarySensor(IntegrationBlueprintEntity, BinarySensorEntity):
-    """starlingdevconnect binary_sensor class."""
+    """starling_home_hub binary_sensor class."""
 
     def __init__(
         self,

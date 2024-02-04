@@ -48,7 +48,7 @@ Use [black](https://github.com/ambv/black) to make sure the code follows the sty
 
 ## Test your code modification
 
-This custom component is based on [starlingdevconnect template](https://github.com/ThomasLomas/starlingdevconnect).
+This custom component is based on [starling_home_hub template](https://github.com/ThomasLomas/starling_home_hub).
 
 It comes with development environment in a container, easy to launch
 if you use Visual Studio Code. With this container you will have a stand alone
