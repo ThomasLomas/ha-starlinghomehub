@@ -1,4 +1,4 @@
-"""Sample API Client."""
+"""Starling Home Hub Developer Connect API Client."""
 from __future__ import annotations
 
 import asyncio
@@ -25,7 +25,7 @@ class StarlingHomeHubApiClientAuthenticationError(
 
 
 class StarlingHomeHubApiClient:
-    """Sample API Client."""
+    """Starling Home Hub Developer Connect API Client."""
 
     def __init__(
         self,
@@ -33,12 +33,13 @@ class StarlingHomeHubApiClient:
         api_key: str,
         session: aiohttp.ClientSession,
     ) -> None:
-        """Sample API Client."""
+        """Starling Home Hub Developer Connect API Client."""
         self._url = url
         self._api_key = api_key
         self._session = session
 
     def get_api_url_for_endpoint(self, endpoint: str) -> str:
+        """Builds a URL for the API."""
         return self._url + endpoint + "?key=" + self._api_key
 
     async def async_get_status(self) -> any:
