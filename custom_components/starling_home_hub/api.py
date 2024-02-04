@@ -39,7 +39,7 @@ class StarlingHomeHubApiClient:
         self._session = session
 
     def get_api_url_for_endpoint(self, endpoint: str) -> str:
-        """Builds a URL for the API."""
+        """Build URL for the API."""
         return self._url + endpoint + "?key=" + self._api_key
 
     async def async_get_status(self) -> any:
