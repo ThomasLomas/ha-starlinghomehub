@@ -1,5 +1,5 @@
 {
-    "name": "ThomasLomas/starling_home_hub",
+    "name": "ThomasLomas/ha-starlinghomehub",
     "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
     "postCreateCommand": "scripts/setup",
     "forwardPorts": [
