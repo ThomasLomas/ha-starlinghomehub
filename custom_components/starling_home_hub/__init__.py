@@ -11,28 +11,25 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import StarlingHomeHubApiClient
-from .const import DOMAIN
+from .const import DOMAIN, PLATFORMS
 from .coordinator import StarlingHomeHubDataUpdateCoordinator
-
-PLATFORMS: list[Platform] = [
-    Platform.SENSOR,
-    Platform.BINARY_SENSOR,
-    Platform.SWITCH,
-]
-
 
 # https://developers.home-assistant.io/docs/config_entries_index/#setting-up-an-entry
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""
+
+    client = StarlingHomeHubApiClient(
+        url=entry.data[CONF_URL],
+        api_key=entry.data[CONF_API_KEY],
+        session=async_get_clientsession(hass),
+    )
+
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = coordinator = StarlingHomeHubDataUpdateCoordinator(
         hass=hass,
-        client=StarlingHomeHubApiClient(
-            url=entry.data[CONF_URL],
-            api_key=entry.data[CONF_API_KEY],
-            session=async_get_clientsession(hass),
-        ),
+        client=client,
     )
+
     # https://developers.home-assistant.io/docs/integration_fetching_data#coordinated-single-api-poll-for-data-for-all-entities
     await coordinator.async_config_entry_first_refresh()
 

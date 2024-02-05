@@ -80,12 +80,12 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         status_body = await client.async_get_status()
 
-        if not status_body["apiReady"]:
+        if not status_body.apiReady:
             raise StarlingHomeHubApiClientCommunicationError(
                 "Starling reporting that API is not ready"
             )
 
-        if not status_body["permissions"]["read"]:
+        if not status_body.permissions["read"]:
             raise StarlingHomeHubApiClientAuthenticationError(
                 "API Key does not have read permissions",
             )
