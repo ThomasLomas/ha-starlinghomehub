@@ -1,5 +1,6 @@
 """Starling Home Hub Developer Connect API Client."""
 from __future__ import annotations
+from .models import Device, Devices, Status, SpecificDevice
 
 import asyncio
 import socket
@@ -42,20 +43,38 @@ class StarlingHomeHubApiClient:
         """Build URL for the API."""
         return self._url + endpoint + "?key=" + self._api_key
 
-    async def async_get_status(self) -> any:
+    async def async_get_status(self) -> Status:
         """Get status from the API."""
-        return await self._api_wrapper(
+        status_response = await self._api_wrapper(
             method="get", url=self.get_api_url_for_endpoint("status")
         )
 
-    async def async_set_title(self, value: str) -> any:
-        """Get data from the API."""
-        return await self._api_wrapper(
-            method="patch",
-            url="https://jsonplaceholder.typicode.com/posts/1",
-            data={"title": value},
-            headers={"Content-type": "application/json; charset=UTF-8"},
+        return Status(**status_response)
+
+    async def async_get_device(self, device_id: str) -> SpecificDevice:
+        """Get devices from the API."""
+        device_response = await self._api_wrapper(
+            method="get", url=self.get_api_url_for_endpoint(f"devices/{device_id}")
         )
+
+        return SpecificDevice(**device_response)
+
+    async def async_get_devices(self) -> list[Device]:
+        """Get devices from the API."""
+        devices_response = await self._api_wrapper(
+            method="get", url=self.get_api_url_for_endpoint("devices")
+        )
+
+        return Devices(**devices_response).devices
+
+    # async def async_set_title(self, value: str) -> any:
+    #     """Get data from the API."""
+    #     return await self._api_wrapper(
+    #         method="patch",
+    #         url="https://jsonplaceholder.typicode.com/posts/1",
+    #         data={"title": value},
+    #         headers={"Content-type": "application/json; charset=UTF-8"},
+    #     )
 
     async def _api_wrapper(
         self,
