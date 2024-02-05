@@ -1,6 +1,6 @@
-"""Models used by Starling Home Hub"""
+"""Models used by Starling Home Hub."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 @dataclass
 class Device:

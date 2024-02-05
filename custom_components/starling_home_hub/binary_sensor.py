@@ -1,6 +1,6 @@
 """Sensor platform for starling_home_hub."""
 from __future__ import annotations
-from typing import Callable, Any
+from collections.abc import Callable
 
 from homeassistant.components.binary_sensor import BinarySensorEntity, BinarySensorEntityDescription, BinarySensorDeviceClass
 from homeassistant.helpers.entity import EntityCategory
@@ -12,7 +12,7 @@ from homeassistant.config_entries import ConfigEntry
 from .const import DOMAIN, LOGGER
 from .coordinator import StarlingHomeHubDataUpdateCoordinator
 from .entity import StarlingHomeHubEntity
-from .models import CoordinatorData, SpecificDevice
+from .models import CoordinatorData, SpecificDevice, Device
 
 from dataclasses import dataclass
 
@@ -20,7 +20,7 @@ from dataclasses import dataclass
 class StarlingHomeHubNestProtectBinarySensorDescription(BinarySensorEntityDescription):
     """Class to describe an Nest Protect sensor."""
 
-    value_fn: Callable[[Any], StateType] | None = None
+    value_fn: Callable[[Device], StateType] | None = None
 
 BINARY_SENSOR_DESCRIPTIONS: list[BinarySensorEntityDescription] = [
     StarlingHomeHubNestProtectBinarySensorDescription(
