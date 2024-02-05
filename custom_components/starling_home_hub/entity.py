@@ -4,8 +4,9 @@ from __future__ import annotations
 from homeassistant.helpers.entity import DeviceInfo, EntityDescription
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import ATTRIBUTION, DOMAIN, NAME, VERSION
+from .const import ATTRIBUTION, DOMAIN
 from .models import SpecificDevice
+from .coordinator import StarlingHomeHubDataUpdateCoordinator
 
 class StarlingHomeHubEntity(CoordinatorEntity):
     """StarlingHomeHubEntity class."""

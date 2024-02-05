@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 
 @dataclass
 class Device:
-    """Class that reflects a device"""
+    """Class that reflects a device."""
 
     type: str
     id: str
@@ -27,7 +27,7 @@ class Device:
 
 @dataclass
 class Permissions:
-    """Class that reflects permissions response"""
+    """Class that reflects permissions response."""
 
     read: bool
     write: bool
@@ -36,21 +36,21 @@ class Permissions:
 
 @dataclass
 class Devices:
-    """Class that reflects a devices response"""
+    """Class that reflects a devices response."""
 
     status: bool
     devices: list[Device]
 
 @dataclass
 class SpecificDevice:
-    """Class that reflects a specific device"""
+    """Class that reflects a specific device."""
 
     status: str
     properties: Device
 
 @dataclass
 class Status:
-    """Class that reflects a status response"""
+    """Class that reflects a status response."""
 
     apiVersion: float
     apiReady: bool
@@ -60,5 +60,7 @@ class Status:
 
 @dataclass
 class CoordinatorData:
+    """Class that houses all the coordinator data required."""
+
     devices: dict[str, SpecificDevice]
     status: Status

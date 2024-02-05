@@ -1,8 +1,10 @@
 """Sensor platform for starling_home_hub."""
 from __future__ import annotations
+from typing import Callable, Any
 
 from homeassistant.components.binary_sensor import BinarySensorEntity, BinarySensorEntityDescription, BinarySensorDeviceClass
 from homeassistant.helpers.entity import EntityCategory
+from homeassistant.helpers.typing import StateType
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.config_entries import ConfigEntry
@@ -10,11 +12,9 @@ from homeassistant.config_entries import ConfigEntry
 from .const import DOMAIN, LOGGER
 from .coordinator import StarlingHomeHubDataUpdateCoordinator
 from .entity import StarlingHomeHubEntity
-from .models import CoordinatorData, Device
-from .api import StarlingHomeHubApiClient
+from .models import CoordinatorData, SpecificDevice
 
 from dataclasses import dataclass
-from datetime import timedelta
 
 @dataclass
 class StarlingHomeHubNestProtectBinarySensorDescription(BinarySensorEntityDescription):
@@ -52,11 +52,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
     LOGGER.debug(data.devices)
 
-    for device_id, device in filter(lambda device: device[1].properties["type"] == "protect", data.devices.items()):
+    for device in filter(lambda device: device[1].properties["type"] == "protect", data.devices.items()):
         for entity_description in BINARY_SENSOR_DESCRIPTIONS:
             entities.append(
                 StarlingHomeHubNestProtectSensor(
-                    device_id=device.properties["id"],
+                    device_id=device[0],
                     coordinator=coordinator,
                     entity_description=entity_description
                 )
@@ -82,7 +82,7 @@ class StarlingHomeHubNestProtectSensor(StarlingHomeHubEntity, BinarySensorEntity
         self.entity_description = entity_description
 
     def get_device(self) -> SpecificDevice:
-        """Helper to get the actual device data from coordinator"""
+        """Get the actual device data from coordinator."""
         return self.coordinator.data.devices.get(self.device_id)
 
     @property

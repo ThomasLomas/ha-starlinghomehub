@@ -41,7 +41,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
         self.client = client
 
     async def fetch_data(self) -> CoordinatorData:
-        """Fetch data for the devices"""
+        """Fetch data for the devices."""
         devices = await self.client.async_get_devices()
         status = await self.client.async_get_status()
 
