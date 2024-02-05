@@ -1,7 +1,7 @@
 """Custom integration to integrate starling_home_hub with Home Assistant.
 
 For more details about this integration, please refer to
-https://github.com/ThomasLomas/starling_home_hub
+https://github.com/ThomasLomas/ha-starlinghomehub
 """
 from __future__ import annotations
 
