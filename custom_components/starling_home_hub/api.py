@@ -1,13 +1,12 @@
 """Starling Home Hub Developer Connect API Client."""
 from __future__ import annotations
-from .models import Device, Devices, Status, SpecificDevice
+from .models import Device, Devices, Status, SpecificDevice, StartStream, StreamStatus
 
 import asyncio
 import socket
-
 import aiohttp
 import async_timeout
-
+import base64
 
 class StarlingHomeHubApiClientError(Exception):
     """Exception to indicate a general API error."""
@@ -67,14 +66,38 @@ class StarlingHomeHubApiClient:
 
         return Devices(**devices_response).devices
 
-    # async def async_set_title(self, value: str) -> any:
-    #     """Get data from the API."""
-    #     return await self._api_wrapper(
-    #         method="patch",
-    #         url="https://jsonplaceholder.typicode.com/posts/1",
-    #         data={"title": value},
-    #         headers={"Content-type": "application/json; charset=UTF-8"},
-    #     )
+    async def async_start_stream(self, device_id: str, sdp_offer: str) -> StartStream:
+        """Start a WebRTC Stream."""
+        start_stream_response = await self._api_wrapper(
+            method="post",
+            url=self.get_api_url_for_endpoint(f"devices/{device_id}/stream"),
+            data={"offer": base64.b64encode(sdp_offer.encode()).decode()},
+            headers={"Content-type": "application/json; charset=UTF-8"}
+        )
+
+        return StartStream(**start_stream_response)
+
+    async def async_stop_stream(self, device_id: str, stream_id: str) -> StreamStatus:
+        """Stop a WebRTC Stream."""
+        stop_stream_response = await self._api_wrapper(
+            method="post",
+            url=self.get_api_url_for_endpoint(f"devices/{device_id}/stream/{stream_id}/stop"),
+            headers={"Content-type": "application/json; charset=UTF-8"},
+            data={}
+        )
+
+        return StreamStatus(**stop_stream_response)
+
+    async def async_extend_stream(self, device_id: str, stream_id: str) -> StreamStatus:
+        """Extend a WebRTC Stream."""
+        extend_stream_response = await self._api_wrapper(
+            method="post",
+            url=self.get_api_url_for_endpoint(f"devices/{device_id}/stream/{stream_id}/extend"),
+            headers={"Content-type": "application/json; charset=UTF-8"},
+            data={}
+        )
+
+        return StreamStatus(**extend_stream_response)
 
     async def _api_wrapper(
         self,

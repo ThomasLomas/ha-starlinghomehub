@@ -24,6 +24,7 @@ class Device:
 
     # Camera
     supportsStreaming: bool
+    cameraModel: str
 
 @dataclass
 class Permissions:
@@ -64,3 +65,17 @@ class CoordinatorData:
 
     devices: dict[str, SpecificDevice]
     status: Status
+
+@dataclass
+class StartStream:
+    """Class for handling starting a WebRTC stream."""
+
+    status: str
+    answer: str
+    streamId: str
+
+@dataclass
+class StreamStatus:
+    """Class for stream status."""
+
+    status: str

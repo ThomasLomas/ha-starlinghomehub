@@ -12,7 +12,7 @@ from homeassistant.config_entries import ConfigEntry
 from .const import DOMAIN, LOGGER
 from .coordinator import StarlingHomeHubDataUpdateCoordinator
 from .entity import StarlingHomeHubEntity
-from .models import CoordinatorData, SpecificDevice, Device
+from .models import CoordinatorData, Device
 
 from dataclasses import dataclass
 
@@ -34,6 +34,12 @@ BINARY_SENSOR_DESCRIPTIONS: list[BinarySensorEntityDescription] = [
         name="Carbon Monoxide Detected",
         value_fn=lambda device: device["coDetected"],
         device_class=BinarySensorDeviceClass.CO
+    ),
+    StarlingHomeHubNestProtectBinarySensorDescription(
+        key="occupancy_detected",
+        name="Occupancy Detected",
+        value_fn=lambda device: device["occupancyDetected"],
+        device_class=BinarySensorDeviceClass.OCCUPANCY
     ),
     StarlingHomeHubNestProtectBinarySensorDescription(
         key="battery_status",
@@ -77,13 +83,10 @@ class StarlingHomeHubNestProtectSensor(StarlingHomeHubEntity, BinarySensorEntity
 
         self.device_id = device_id
         self.coordinator = coordinator
-
-        super().__init__(coordinator, self.get_device(), entity_description)
         self.entity_description = entity_description
+        self._attr_unique_id = f"{device_id}-{self.entity_description.key}"
 
-    def get_device(self) -> SpecificDevice:
-        """Get the actual device data from coordinator."""
-        return self.coordinator.data.devices.get(self.device_id)
+        super().__init__(coordinator)
 
     @property
     def is_on(self) -> bool:

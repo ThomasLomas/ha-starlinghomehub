@@ -17,7 +17,7 @@ from .api import (
     StarlingHomeHubApiClientError,
 )
 from .const import DOMAIN, LOGGER
-from .models import CoordinatorData, SpecificDevice
+from .models import CoordinatorData, SpecificDevice, StartStream, StreamStatus
 
 # https://developers.home-assistant.io/docs/integration_fetching_data#coordinated-single-api-poll-for-data-for-all-entities
 class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
@@ -40,8 +40,21 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
         )
         self.client = client
 
+    async def start_stream(self, device_id: str, sdp_offer: str) -> StartStream:
+        """Start a stream."""
+        return await self.client.async_start_stream(device_id=device_id, sdp_offer=sdp_offer)
+
+    async def stop_stream(self, device_id: str, stream_id: str) -> StreamStatus:
+        """Stop a stream."""
+        return await self.client.async_stop_stream(device_id=device_id, stream_id=stream_id)
+
+    async def extend_stream(self, device_id: str, stream_id: str) -> StreamStatus:
+        """Extend a stream."""
+        return await self.client.async_extend_stream(device_id=device_id, stream_id=stream_id)
+
     async def fetch_data(self) -> CoordinatorData:
         """Fetch data for the devices."""
+
         devices = await self.client.async_get_devices()
         status = await self.client.async_get_status()
 
@@ -56,6 +69,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self) -> CoordinatorData:
         """Update data via library."""
+
         try:
             return await self.fetch_data()
         except StarlingHomeHubApiClientAuthenticationError as exception:
