@@ -1,6 +1,7 @@
 """StarlingHomeHubEntity class."""
 from __future__ import annotations
 
+from homeassistant.core import callback
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
@@ -40,6 +41,11 @@ class StarlingHomeHubEntity(CoordinatorEntity):
             suggested_area=device_properties["where"],
             serial_number=device_properties["serialNumber"]
         )
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Handle updated data from the coordinator."""
+        self.async_write_ha_state()
 
     def get_device(self) -> SpecificDevice:
         """Get the actual device data from coordinator."""

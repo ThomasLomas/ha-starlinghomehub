@@ -11,6 +11,7 @@ VERSION = "0.0.0"
 ATTRIBUTION = "Based on the Starling Home Hub Developer Connect API"
 
 PLATFORMS: list[Platform] = [
+    Platform.SENSOR,
     Platform.BINARY_SENSOR,
-    Platform.CAMERA
+    # Platform.CAMERA <- Disabled for now
 ]
