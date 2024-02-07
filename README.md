@@ -1,47 +1,57 @@
-# Notice
+# Starling Home Hub Integration
 
-The component and platforms in this repository are not meant to be used by a
-user, but as a "blueprint" that custom component developers can build
-upon, to make more awesome stuff.
+[![ThomasLomas - ha-starlinghomehub](https://img.shields.io/static/v1?label=ThomasLomas&message=ha-starlinghomehub&color=blue&logo=github)](https://github.com/ThomasLomas/ha-starlinghomehub "Go to GitHub repo")
+[![stars - ha-starlinghomehub](https://img.shields.io/github/stars/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
+[![forks - ha-starlinghomehub](https://img.shields.io/github/forks/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
 
-HAVE FUN! 😎
+[![Validate](https://github.com/ThomasLomas/ha-starlinghomehub/workflows/Validate/badge.svg)](https://github.com/ThomasLomas/ha-starlinghomehub/actions?query=workflow:"Validate")
+[![GitHub tag](https://img.shields.io/github/tag/ThomasLomas/ha-starlinghomehub?include_prereleases=&sort=semver&color=blue)](https://github.com/ThomasLomas/ha-starlinghomehub/releases/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+[![issues - ha-starlinghomehub](https://img.shields.io/github/issues/ThomasLomas/ha-starlinghomehub)](https://github.com/ThomasLomas/ha-starlinghomehub/issues)
 
-## Why?
+This is a custom integration for Home Assistant for accessing the [Starling Home Hub](https://www.starlinghome.io/) via the Starling Developer Connect API. My work is unaffiliated with Starling LLC. This is for use at your own risk. I don't provide any warranties whatsoever.
 
-This is simple, by having custom_components look (README + structure) the same
-it is easier for developers to help each other and for users to start using them.
+## Current Support
 
-If you are a developer and you want to add things to this "blueprint" that you think more
-developers will have use for, please open a PR to add it :)
+- [x] Nest Protect
+  - [x] Battery Status
+  - [x] Carbon Monoxide Detection
+  - [x] Smoke Detection
+  - [x] Occupancy Detection
+- [ ] Thermostat
+- [ ] Temperature Sensor
+- [ ] Camera (pre-2021 models)
+- [ ] Camera (2021/22 models)
+- [ ] Guard
+- [ ] Detect
+- [ ] Nest x Yale Lock
+- [ ] Nest Weather Service
 
-## What?
+## Installation
 
-This repository contains multiple files, here is a overview:
+1. Using the tool of choice open the directory (folder) for your HA configuration (where you find `configuration.yaml`).
+1. If you do not have a `custom_components` directory (folder) there, you need to create it.
+1. In the `custom_components` directory (folder) create a new folder called `starling_home_hub`.
+1. Download _all_ the files from the `custom_components/starling_home_hub/` directory (folder) in this repository.
+1. Place the files you downloaded in the new directory (folder) you created.
+1. Restart Home Assistant
+1. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Starling Home Hub Integration"
 
-File | Purpose | Documentation
--- | -- | --
-`.devcontainer.json` | Used for development/testing with Visual Studio Code. | [Documentation](https://code.visualstudio.com/docs/remote/containers)
-`.github/ISSUE_TEMPLATE/*.yml` | Templates for the issue tracker | [Documentation](https://help.github.com/en/github/building-a-strong-community/configuring-issue-templates-for-your-repository)
-`.vscode/tasks.json` | Tasks for the devcontainer. | [Documentation](https://code.visualstudio.com/docs/editor/tasks)
-`custom_components/starling_home_hub/*` | Integration files, this is where everything happens. | [Documentation](https://developers.home-assistant.io/docs/creating_component_index)
-`CONTRIBUTING.md` | Guidelines on how to contribute. | [Documentation](https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors)
-`LICENSE` | The license file for the project. | [Documentation](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository)
-`README.md` | The file you are reading now, should contain info about the integration, installation and configuration instructions. | [Documentation](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
-`requirements.txt` | Python packages used for development/lint/testing this integration. | [Documentation](https://pip.pypa.io/en/stable/user_guide/#requirements-files)
+## Hub Setup
 
-## How?
+The SDC API is disabled by default. To enable the API, go to the Starling app, then:
 
-1. Create a new repository in GitHub, using this repository as a template by clicking the "Use this template" button in the GitHub UI.
-1. Open your new repository in Visual Studio Code devcontainer (Preferably with the "`Dev Containers: Clone Repository in Named Container Volume...`" option).
-1. Rename all instances of the `starling_home_hub` to `custom_components/<your_integration_domain>` (e.g. `custom_components/awesome_integration`).
-1. Rename all instances of the `Integration Blueprint` to `<Your Integration Name>` (e.g. `Awesome Integration`).
-1. Run the `scripts/develop` to start HA and test out your new integration.
+1. Open the Starling Developer Connect section in the app.
+2. If not already active, you will be prompted to enable Password Security to set an access password for your hub.
+3. Select the Enable HTTP Access and/or Enable HTTPS Access checkboxes.
 
-## Next steps
+Access to the API requires creating an API key - one per app - with specific permissions that you set. To create an API key for your application:
+1. In the My API Keys section, press Create New API Key.
+2. Enter a name for your app/API key, and choose the permissions appropriate for your use case.
+3. Press Create API Key. Your API key (a 12-character opaque alphanumeric string) will then appear under My API Keys.
 
-These are some next steps you may want to look into:
-- Add tests to your integration, [`pytest-homeassistant-custom-component`](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component) can help you get started.
-- Add brand images (logo/icon) to https://github.com/home-assistant/brands.
-- Create your first release.
-- Share your integration on the [Home Assistant Forum](https://community.home-assistant.io/).
-- Submit your integration to the [HACS](https://hacs.xyz/docs/publish/start).
+To modify an existing API key's permissions or name, hover over the key in My API Keys, then press the edit button.
+
+## Contributions are welcome!
+
+If you want to contribute to this please read the [Contribution guidelines](CONTRIBUTING.md)
