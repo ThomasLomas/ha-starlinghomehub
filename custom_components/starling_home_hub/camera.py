@@ -19,8 +19,6 @@ from .coordinator import StarlingHomeHubDataUpdateCoordinator
 from .entity import StarlingHomeHubEntity
 from .models import CoordinatorData, StartStream
 
-from dataclasses import dataclass
-
 PLACEHOLDER = Path(__file__).parent / "placeholder.png"
 STREAM_EXPIRATION_BUFFER = timedelta(seconds=60)
 
