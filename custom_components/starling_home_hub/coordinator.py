@@ -54,6 +54,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def fetch_data(self) -> CoordinatorData:
         """Fetch data for the devices."""
+
         devices = await self.client.async_get_devices()
         status = await self.client.async_get_status()
 
@@ -68,6 +69,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self) -> CoordinatorData:
         """Update data via library."""
+
         try:
             return await self.fetch_data()
         except StarlingHomeHubApiClientAuthenticationError as exception:

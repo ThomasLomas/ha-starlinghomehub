@@ -7,7 +7,6 @@ import socket
 import aiohttp
 import async_timeout
 import base64
-from .const import LOGGER
 
 class StarlingHomeHubApiClientError(Exception):
     """Exception to indicate a general API error."""
@@ -79,7 +78,7 @@ class StarlingHomeHubApiClient:
         return StartStream(**start_stream_response)
 
     async def async_stop_stream(self, device_id: str, stream_id: str) -> StreamStatus:
-        """stop a WebRTC Stream."""
+        """Stop a WebRTC Stream."""
         stop_stream_response = await self._api_wrapper(
             method="post",
             url=self.get_api_url_for_endpoint(f"devices/{device_id}/stream/{stream_id}/stop"),

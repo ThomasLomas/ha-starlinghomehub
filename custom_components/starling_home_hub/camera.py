@@ -5,14 +5,11 @@ from pathlib import Path
 from datetime import timedelta, datetime, timezone
 import asyncio
 import functools
-from typing import cast
 import base64
 
 from homeassistant.components.camera import Camera, CameraEntityFeature, StreamType
 from homeassistant.components.stream import CONF_EXTRA_PART_WAIT_TIME
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.event import async_track_point_in_utc_time
-from homeassistant.helpers.typing import StateType
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.config_entries import ConfigEntry
@@ -79,7 +76,10 @@ class StarlingHomeHubNestCamera(StarlingHomeHubEntity, Camera):
         """Whether or not to use stream to generate stills."""
 
         device = self.get_device()
-        return device.properties["supportsStreaming"]
+        supports_streaming = device.properties["supportsStreaming"]
+        LOGGER.debug(f"supports streaming: {supports_streaming}")
+
+        return supports_streaming
 
     @property
     def available(self) -> bool:
