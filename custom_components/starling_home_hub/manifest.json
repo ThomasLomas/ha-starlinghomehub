@@ -6,7 +6,7 @@
   ],
   "dhcp": [
     {
-      "hostname": "StarlingHomeHub"
+      "hostname": "starlinghomehub"
     }
   ],
   "config_flow": true,
