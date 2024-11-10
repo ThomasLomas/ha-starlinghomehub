@@ -17,11 +17,13 @@ from .models import CoordinatorData, Device
 
 from dataclasses import dataclass
 
+
 @dataclass
 class StarlingHomeHubNestProtectSensorDescription(SensorEntityDescription):
     """Class to describe an Nest Protect sensor."""
 
     value_fn: Callable[[Device], StateType] | None = None
+
 
 SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     StarlingHomeHubNestProtectSensorDescription(
@@ -40,13 +42,12 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     )
 ]
 
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up the sensor platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
     entities: list[StarlingHomeHubNestProtectSensor] = []
     data: CoordinatorData = coordinator.data
-
-    LOGGER.debug(data.devices)
 
     for device in filter(lambda device: device[1].properties["type"] == "protect", data.devices.items()):
         for entity_description in SENSOR_DESCRIPTIONS:
@@ -59,6 +60,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
             )
 
     async_add_entities(entities, True)
+
 
 class StarlingHomeHubNestProtectSensor(StarlingHomeHubEntity, SensorEntity):
     """Starling Home Hub Nest Protect Sensor class."""
@@ -82,4 +84,3 @@ class StarlingHomeHubNestProtectSensor(StarlingHomeHubEntity, SensorEntity):
     def native_value(self) -> StateType | date | datetime | Decimal:
         """Return the state of the sensor."""
         return self.entity_description.value_fn(self.get_device().properties)
-
