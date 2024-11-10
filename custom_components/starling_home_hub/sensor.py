@@ -10,7 +10,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.config_entries import ConfigEntry
 
-from .const import DOMAIN, LOGGER
+from .const import DOMAIN
 from .coordinator import StarlingHomeHubDataUpdateCoordinator
 from .entity import StarlingHomeHubEntity
 from .models import CoordinatorData, Device
