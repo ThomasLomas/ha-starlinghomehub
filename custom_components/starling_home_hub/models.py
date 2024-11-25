@@ -55,7 +55,7 @@ class Status:
 
     apiVersion: float
     apiReady: bool
-    connectedToNest: bool
+    connectedToGoogleHome: bool
     appName: str
     permissions: Permissions
 
