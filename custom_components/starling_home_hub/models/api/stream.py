@@ -1,3 +1,4 @@
+"""Models for handling WebRTC stream."""
 from dataclasses import dataclass
 
 

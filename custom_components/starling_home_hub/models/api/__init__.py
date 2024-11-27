@@ -1,1 +1,1 @@
-""" Contains all the models specific to the API. """
+"""Contains all the models specific to the API."""

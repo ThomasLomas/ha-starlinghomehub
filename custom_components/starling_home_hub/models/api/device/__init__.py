@@ -1,4 +1,4 @@
-""" Contains all the devices supported by the Starling Home Hub integration. """
+"""Contains all the devices supported by the Starling Home Hub integration."""
 
 from dataclasses import dataclass
 from typing import Generic, TypeVar

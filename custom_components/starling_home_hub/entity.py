@@ -5,6 +5,8 @@ from homeassistant.core import callback
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
+from custom_components.starling_home_hub.models.api.device import Device
+
 from .const import ATTRIBUTION, DOMAIN
 from .coordinator import StarlingHomeHubDataUpdateCoordinator
 
