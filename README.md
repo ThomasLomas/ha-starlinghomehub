@@ -1,5 +1,7 @@
 # Starling Home Hub Integration
 
+# NOTE: No longer supporting v1 of the Starling Home Hub API
+
 [![ThomasLomas - ha-starlinghomehub](https://img.shields.io/static/v1?label=ThomasLomas&message=ha-starlinghomehub&color=blue&logo=github)](https://github.com/ThomasLomas/ha-starlinghomehub "Go to GitHub repo")
 [![stars - ha-starlinghomehub](https://img.shields.io/github/stars/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
 [![forks - ha-starlinghomehub](https://img.shields.io/github/forks/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
@@ -17,7 +19,6 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
   - [x] Battery Status
   - [x] Carbon Monoxide Detection
   - [x] Smoke Detection
-  - [x] Occupancy Detection
 - [ ] Thermostat
 - [ ] Temperature Sensor
 - [ ] Camera (pre-2021 models)
@@ -38,6 +39,8 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 1. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Starling Home Hub Integration"
 
 ## Hub Setup
+
+> Note: Ensure you are using the latest firmware (2024.43 or above)
 
 The SDC API is disabled by default. To enable the API, go to the Starling app, then:
 

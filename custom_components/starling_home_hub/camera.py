@@ -14,13 +14,16 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.config_entries import ConfigEntry
 
+from custom_components.starling_home_hub.models.api.stream import StartStream
+from custom_components.starling_home_hub.models.coordinator import CoordinatorData
+
 from .const import DOMAIN, LOGGER
 from .coordinator import StarlingHomeHubDataUpdateCoordinator
 from .entity import StarlingHomeHubEntity
-from .models import CoordinatorData, StartStream
 
 PLACEHOLDER = Path(__file__).parent / "placeholder.png"
 STREAM_EXPIRATION_BUFFER = timedelta(seconds=60)
+
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up the sensor platform."""
@@ -38,6 +41,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
         )
 
     async_add_entities(entities, True)
+
 
 class StarlingHomeHubNestCamera(StarlingHomeHubEntity, Camera):
     """Starling Home Hub Nest Camera class."""

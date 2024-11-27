@@ -2,7 +2,7 @@
     "config": {
         "step": {
             "user": {
-                "description": "For the URL you are looking for something like this \"http://192.168.1.100:3080/api/connect/v1/\" If you need help with the configuration have a look here: https://github.com/ThomasLomas/ha-starlinghomehub",
+                "description": "For the URL you are looking for something like this \"http://192.168.1.100:3080/api/connect/v2/\" If you need help with the configuration have a look here: https://github.com/ThomasLomas/ha-starlinghomehub",
                 "data": {
                     "url": "Local Developer Connect URL",
                     "api_key": "API Key"

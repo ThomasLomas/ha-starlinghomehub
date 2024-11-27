@@ -11,15 +11,20 @@ from homeassistant.helpers.update_coordinator import (
 )
 from homeassistant.exceptions import ConfigEntryAuthFailed
 
+from custom_components.starling_home_hub.models.api.device import Device
+from custom_components.starling_home_hub.models.api.stream import StartStream, StreamStatus
+from custom_components.starling_home_hub.models.coordinator import CoordinatorData
+
 from .api import (
     StarlingHomeHubApiClient,
     StarlingHomeHubApiClientAuthenticationError,
     StarlingHomeHubApiClientError,
 )
 from .const import DOMAIN, LOGGER
-from .models import CoordinatorData, SpecificDevice, StartStream, StreamStatus
 
 # https://developers.home-assistant.io/docs/integration_fetching_data#coordinated-single-api-poll-for-data-for-all-entities
+
+
 class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
@@ -58,7 +63,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
         devices = await self.client.async_get_devices()
         status = await self.client.async_get_status()
 
-        full_devices: dict[str, SpecificDevice] = {}
+        full_devices: dict[str, Device] = {}
         for device in devices:
             full_device = await self.client.async_get_device(device_id=device["id"])
             full_devices[device["id"]] = full_device
