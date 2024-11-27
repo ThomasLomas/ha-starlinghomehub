@@ -11,7 +11,7 @@ from homeassistant.helpers.update_coordinator import (
 )
 from homeassistant.exceptions import ConfigEntryAuthFailed
 
-from custom_components.starling_home_hub.models.api.device import Device
+from custom_components.starling_home_hub.models.api.device import Device, DeviceUpdate
 from custom_components.starling_home_hub.models.api.stream import StartStream, StreamStatus
 from custom_components.starling_home_hub.models.coordinator import CoordinatorData
 
@@ -55,6 +55,10 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
         """Extend a stream."""
         return await self.client.async_extend_stream(device_id=device_id, stream_id=stream_id)
 
+    async def update_device(self, device_id: str, update: dict) -> DeviceUpdate:
+        """Update a device."""
+        return await self.client.async_update_device(device_id=device_id, update=update)
+
     async def fetch_data(self) -> CoordinatorData:
         """Fetch data for the devices."""
 
@@ -69,6 +73,13 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
         self.data = CoordinatorData(devices=full_devices, status=status)
 
         return self.data
+
+    async def refresh_data(self) -> bool:
+        """Refresh data."""
+        data = await self.fetch_data()
+        self.async_set_updated_data(data)
+
+        return True
 
     async def _async_update_data(self) -> CoordinatorData:
         """Update data via library."""

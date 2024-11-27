@@ -29,12 +29,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     """Set up the sensor platform."""
 
     coordinator = hass.data[DOMAIN][entry.entry_id]
-    entities: list[StarlingHomeHubNestCamera] = []
+    entities: list[StarlingHomeHubCamera] = []
     data: CoordinatorData = coordinator.data
 
     for device in filter(lambda device: device[1].properties["type"] == "cam", data.devices.items()):
         entities.append(
-            StarlingHomeHubNestCamera(
+            StarlingHomeHubCamera(
                 device_id=device[0],
                 coordinator=coordinator
             )
@@ -43,15 +43,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     async_add_entities(entities, True)
 
 
-class StarlingHomeHubNestCamera(StarlingHomeHubEntity, Camera):
-    """Starling Home Hub Nest Camera class."""
+class StarlingHomeHubCamera(StarlingHomeHubEntity, Camera):
+    """Starling Home Hub Camera class."""
 
     def __init__(
         self,
         device_id: str,
         coordinator: StarlingHomeHubDataUpdateCoordinator
     ) -> None:
-        """Initialize the Nest Protect Sensor class."""
+        """Initialize the Camera Sensor class."""
 
         self.device_id = device_id
         self.coordinator = coordinator

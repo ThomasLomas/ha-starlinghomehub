@@ -7,7 +7,8 @@ import aiohttp
 import async_timeout
 import base64
 
-from custom_components.starling_home_hub.models.api.device import Device
+from custom_components.starling_home_hub.const import LOGGER
+from custom_components.starling_home_hub.models.api.device import Device, DeviceUpdate
 from custom_components.starling_home_hub.models.api.devices import Devices
 from custom_components.starling_home_hub.models.api.status import Status
 from custom_components.starling_home_hub.models.api.stream import StartStream, StreamStatus
@@ -62,6 +63,21 @@ class StarlingHomeHubApiClient:
         )
 
         return Device(**device_response)
+
+    async def async_update_device(self, device_id: str, update: dict) -> DeviceUpdate:
+        """Update a device."""
+        LOGGER.debug(f"Updating device {device_id} with {update}")
+
+        update_response = await self._api_wrapper(
+            method="post",
+            url=self.get_api_url_for_endpoint(f"devices/{device_id}"),
+            data=update,
+            headers={"Content-type": "application/json; charset=UTF-8"}
+        )
+
+        LOGGER.debug(f"Response from update: {update_response}")
+
+        return DeviceUpdate(**update_response)
 
     async def async_get_devices(self) -> list[Device]:
         """Get devices from the API."""

@@ -7,11 +7,12 @@ LOGGER: Logger = getLogger(__package__)
 
 NAME = "Starling Home Hub Integration"
 DOMAIN = "starling_home_hub"
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 ATTRIBUTION = "Based on the Starling Home Hub Developer Connect API"
 
 PLATFORMS: list[Platform] = [
     Platform.SENSOR,
     Platform.BINARY_SENSOR,
+    Platform.CLIMATE,
     # Platform.CAMERA <- Disabled for now
 ]

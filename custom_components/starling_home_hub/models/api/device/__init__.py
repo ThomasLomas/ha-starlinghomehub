@@ -12,3 +12,11 @@ class Device(Generic[T]):
 
     status: str
     properties: T
+
+
+@dataclass
+class DeviceUpdate:
+    """Class that reflects a specific device update."""
+
+    status: str
+    setStatus: dict[str, str]

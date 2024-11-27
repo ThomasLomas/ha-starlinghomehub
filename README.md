@@ -1,6 +1,7 @@
 # Starling Home Hub Integration
 
-# NOTE: No longer supporting v1 of the Starling Home Hub API
+# NOTE: As of v1.0.0 of this integration this requires v2 of the Starling Home Hub API
+# If you must use v1 then remain on v0, although this is no longer maintained
 
 [![ThomasLomas - ha-starlinghomehub](https://img.shields.io/static/v1?label=ThomasLomas&message=ha-starlinghomehub&color=blue&logo=github)](https://github.com/ThomasLomas/ha-starlinghomehub "Go to GitHub repo")
 [![stars - ha-starlinghomehub](https://img.shields.io/github/stars/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
@@ -15,11 +16,19 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 
 ## Current Support
 
+> Since v2 of the Starling Home Hub API there is now more widespread support for devices, and as such this may now also include non-Nest devices.
+
 - [x] Nest Protect
   - [x] Battery Status
   - [x] Carbon Monoxide Detection
   - [x] Smoke Detection
-- [ ] Thermostat
+- [x] Thermostat
+  - [x] Cool
+  - [x] Heat
+  - [x] Auto
+  - [ ] Preset
+  - [ ] Fan
+  - [ ] Humidifer
 - [ ] Temperature Sensor
 - [ ] Camera (pre-2021 models)
 - [ ] Camera (2021/22 models)
@@ -40,7 +49,7 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 
 ## Hub Setup
 
-> Note: Ensure you are using the latest firmware (2024.43 or above)
+> Ensure you are using the latest firmware (2024.43 or above)
 
 The SDC API is disabled by default. To enable the API, go to the Starling app, then:
 
