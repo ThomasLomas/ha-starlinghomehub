@@ -1,4 +1,5 @@
-from typing import Any, cast
+"""Support for Starling Home Hub thermostats."""
+from typing import Any
 
 from homeassistant.components.climate import (
     ATTR_HVAC_MODE,
@@ -6,8 +7,6 @@ from homeassistant.components.climate import (
     ATTR_TARGET_TEMP_LOW,
     FAN_OFF,
     FAN_ON,
-    PRESET_ECO,
-    PRESET_NONE,
     ClimateEntity,
     ClimateEntityFeature,
     HVACAction,
@@ -20,7 +19,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
 from homeassistant.exceptions import HomeAssistantError
 
-from custom_components.starling_home_hub.const import DOMAIN, LOGGER
+from custom_components.starling_home_hub.const import DOMAIN
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
 from custom_components.starling_home_hub.entity import StarlingHomeHubEntity
 from custom_components.starling_home_hub.models.coordinator import CoordinatorData
