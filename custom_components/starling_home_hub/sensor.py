@@ -7,10 +7,9 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from custom_components.starling_home_hub.const import DEVICE_TYPES_TO_PLATFORMS, DOMAIN
 from custom_components.starling_home_hub.entity import StarlingHomeHubSensorEntity
 from custom_components.starling_home_hub.models.coordinator import CoordinatorData
-
-from .const import DEVICE_TYPES_TO_PLATFORMS, DOMAIN
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:

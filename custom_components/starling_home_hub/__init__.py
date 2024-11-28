@@ -11,9 +11,9 @@ from homeassistant.const import CONF_API_KEY, CONF_URL
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .api import StarlingHomeHubApiClient
-from .const import DOMAIN, PLATFORMS
-from .coordinator import StarlingHomeHubDataUpdateCoordinator
+from custom_components.starling_home_hub.api import StarlingHomeHubApiClient
+from custom_components.starling_home_hub.const import DOMAIN, PLATFORMS
+from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

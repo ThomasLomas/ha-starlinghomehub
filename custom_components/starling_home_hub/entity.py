@@ -12,11 +12,9 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
+from custom_components.starling_home_hub.const import ATTRIBUTION, DOMAIN
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
 from custom_components.starling_home_hub.models.api.device import Device
-
-from .const import ATTRIBUTION, DOMAIN
-from .coordinator import StarlingHomeHubDataUpdateCoordinator
 
 
 class StarlingHomeHubEntity(CoordinatorEntity):

@@ -8,9 +8,8 @@ from homeassistant.const import CONF_API_KEY, CONF_URL
 from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
-from .api import (StarlingHomeHubApiClient, StarlingHomeHubApiClientAuthenticationError, StarlingHomeHubApiClientCommunicationError,
-                  StarlingHomeHubApiClientError)
-from .const import DOMAIN, LOGGER
+from custom_components.starling_home_hub.api import StarlingHomeHubApiClient, StarlingHomeHubApiClientAuthenticationError, StarlingHomeHubApiClientCommunicationError, StarlingHomeHubApiClientError
+from custom_components.starling_home_hub.const import DOMAIN, LOGGER
 
 
 class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
