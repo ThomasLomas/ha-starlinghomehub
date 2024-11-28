@@ -1,4 +1,5 @@
-"""Models for handling WebRTC stream."""
+"""Models for handling WebRTC stream responses."""
+
 from dataclasses import dataclass
 
 

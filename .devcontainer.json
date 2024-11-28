@@ -5,6 +5,7 @@
     "forwardPorts": [
         8123
     ],
+    "appPort": [8123],
     "portsAttributes": {
         "8123": {
             "label": "Home Assistant",

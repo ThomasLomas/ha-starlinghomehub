@@ -1,4 +1,5 @@
 """Starling Home Hub Developer Connect API Client."""
+
 from __future__ import annotations
 
 import asyncio

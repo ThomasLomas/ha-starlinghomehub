@@ -1,4 +1,5 @@
-"""Adds config flow for Staring Home Hub."""
+"""Adds config flow for Staring Home Hub used in initial setup."""
+
 from __future__ import annotations
 
 import voluptuous as vol
@@ -7,12 +8,8 @@ from homeassistant.const import CONF_API_KEY, CONF_URL
 from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
-from .api import (
-    StarlingHomeHubApiClient,
-    StarlingHomeHubApiClientAuthenticationError,
-    StarlingHomeHubApiClientCommunicationError,
-    StarlingHomeHubApiClientError,
-)
+from .api import (StarlingHomeHubApiClient, StarlingHomeHubApiClientAuthenticationError, StarlingHomeHubApiClientCommunicationError,
+                  StarlingHomeHubApiClientError)
 from .const import DOMAIN, LOGGER
 
 

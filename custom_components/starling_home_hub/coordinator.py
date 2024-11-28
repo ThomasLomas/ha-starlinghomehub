@@ -1,4 +1,5 @@
-"""DataUpdateCoordinator for starling_home_hub."""
+"""Handles data updates coordinators."""
+
 from __future__ import annotations
 
 from datetime import timedelta

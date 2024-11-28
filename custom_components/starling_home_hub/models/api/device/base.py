@@ -1,4 +1,5 @@
 """This contains the base device class."""
+
 from dataclasses import dataclass
 
 

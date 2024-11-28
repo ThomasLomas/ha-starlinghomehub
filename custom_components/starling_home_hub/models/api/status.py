@@ -1,4 +1,5 @@
 """Models for the status response from the Starling Home Hub API."""
+
 from dataclasses import dataclass, fields
 
 
