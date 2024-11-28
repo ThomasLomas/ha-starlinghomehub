@@ -5,7 +5,6 @@ import asyncio
 import socket
 import aiohttp
 import async_timeout
-import base64
 
 from custom_components.starling_home_hub.const import LOGGER
 from custom_components.starling_home_hub.models.api.device import Device, DeviceUpdate
@@ -89,12 +88,19 @@ class StarlingHomeHubApiClient:
 
     async def async_start_stream(self, device_id: str, sdp_offer: str) -> StartStream:
         """Start a WebRTC Stream."""
+        # sdp_offer = sdp_offer.replace("\n", "")
+        data = {"offer": sdp_offer}
+        LOGGER.debug(f"Starting stream for device {
+            device_id} with {data}")
+
         start_stream_response = await self._api_wrapper(
             method="post",
             url=self.get_api_url_for_endpoint(f"devices/{device_id}/stream"),
-            data={"offer": base64.b64encode(sdp_offer.encode()).decode()},
+            data=data,
             headers={"Content-type": "application/json; charset=UTF-8"}
         )
+
+        LOGGER.debug(f"Response from start stream: {start_stream_response}")
 
         return StartStream(**start_stream_response)
 

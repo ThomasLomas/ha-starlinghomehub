@@ -14,5 +14,5 @@ PLATFORMS: list[Platform] = [
     Platform.SENSOR,
     Platform.BINARY_SENSOR,
     Platform.CLIMATE,
-    # Platform.CAMERA <- Disabled for now
+    # Platform.CAMERA,
 ]

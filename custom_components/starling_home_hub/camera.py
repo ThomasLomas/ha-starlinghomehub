@@ -26,13 +26,13 @@ STREAM_EXPIRATION_BUFFER = timedelta(seconds=60)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
-    """Set up the sensor platform."""
+    """Set up the camera platform."""
 
     coordinator = hass.data[DOMAIN][entry.entry_id]
     entities: list[StarlingHomeHubCamera] = []
     data: CoordinatorData = coordinator.data
 
-    for device in filter(lambda device: device[1].properties["type"] == "cam", data.devices.items()):
+    for device in filter(lambda device: device[1].properties["type"] == "camera", data.devices.items()):
         entities.append(
             StarlingHomeHubCamera(
                 device_id=device[0],
@@ -60,14 +60,15 @@ class StarlingHomeHubCamera(StarlingHomeHubEntity, Camera):
         super().__init__(coordinator)
         Camera.__init__(self)
 
+        device = self.get_device()
+
+        self._attr_name = device.properties["name"]
         self._stream: StartStream | None = None
         self._create_stream_url_lock = asyncio.Lock()
         self._stream_refresh_unsub: Callable[[], None] | None = None
         self._attr_is_streaming = False
         self._attr_supported_features = CameraEntityFeature(0)
         self.stream_options[CONF_EXTRA_PART_WAIT_TIME] = 3
-
-        device = self.get_device()
 
         if device.properties["supportsStreaming"]:
             self._attr_is_streaming = True
