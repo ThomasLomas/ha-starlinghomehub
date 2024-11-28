@@ -18,7 +18,7 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 
 > Since v2 of the Starling Home Hub API there is now more widespread support for devices, and as such this may now also include non-Nest devices.
 
-- [x] Nest Protect
+- [x] Smoke Detector
   - [x] Battery Status
   - [x] Carbon Monoxide Detection
   - [x] Smoke Detection
@@ -29,7 +29,19 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
   - [ ] Preset
   - [ ] Fan
   - [ ] Humidifer
-- [ ] Temperature Sensor
+- [x] Sensor
+  - [x] Air Quality
+  - [x] Carbon Dioxide Level
+  - [x] Contact State (open/closed)
+  - [x] Temperature
+  - [x] Humidity %
+  - [x] Leak Detection
+  - [x] Light Level
+  - [x] Motion Detected
+  - [x] Occupancy Detected
+  - [x] PM10 Density
+  - [x] PM25 Density
+  - [x] VOC Density
 - [ ] Camera (pre-2021 models)
 - [ ] Camera (2021/22 models)
 - [ ] Guard
