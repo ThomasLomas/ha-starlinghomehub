@@ -89,6 +89,7 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
             CONF_RTSP_PASSWORD: None,
         }
         new_data = {**config_entry.data, **new_options}
+        new_data[CONF_URL] = new_data[CONF_URL].replace("v1", "v2")
 
         hass.config_entries.async_update_entry(
             config_entry, data=new_data, minor_version=0, version=2)
