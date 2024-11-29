@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from decimal import Decimal
-from typing import Any
 
 from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.components.sensor import SensorEntity
@@ -14,7 +13,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from custom_components.starling_home_hub.const import ATTRIBUTION, DOMAIN, LOGGER
+from custom_components.starling_home_hub.const import ATTRIBUTION, DOMAIN
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
 from custom_components.starling_home_hub.integrations import (StarlingHomeHubBinarySensorEntityDescription,
                                                               StarlingHomeHubSensorEntityDescription, StarlingHomeHubSwitchEntityDescription)
