@@ -1,12 +1,19 @@
 """Starling Home Hub Developer Connect API Client."""
+
 from __future__ import annotations
-from .models import Device, Devices, Status, SpecificDevice, StartStream, StreamStatus
 
 import asyncio
 import socket
+
 import aiohttp
 import async_timeout
-import base64
+
+from custom_components.starling_home_hub.const import LOGGER
+from custom_components.starling_home_hub.models.api.device import Device, DeviceUpdate
+from custom_components.starling_home_hub.models.api.devices import Devices
+from custom_components.starling_home_hub.models.api.status import Status
+from custom_components.starling_home_hub.models.api.stream import StartStream, StreamStatus
+
 
 class StarlingHomeHubApiClientError(Exception):
     """Exception to indicate a general API error."""
@@ -48,15 +55,30 @@ class StarlingHomeHubApiClient:
             method="get", url=self.get_api_url_for_endpoint("status")
         )
 
-        return Status(**status_response)
+        return Status.create_from_dict(status_response)
 
-    async def async_get_device(self, device_id: str) -> SpecificDevice:
+    async def async_get_device(self, device_id: str) -> Device:
         """Get devices from the API."""
         device_response = await self._api_wrapper(
             method="get", url=self.get_api_url_for_endpoint(f"devices/{device_id}")
         )
 
-        return SpecificDevice(**device_response)
+        return Device(**device_response)
+
+    async def async_update_device(self, device_id: str, update: dict) -> DeviceUpdate:
+        """Update a device."""
+        LOGGER.debug(f"Updating device {device_id} with {update}")
+
+        update_response = await self._api_wrapper(
+            method="post",
+            url=self.get_api_url_for_endpoint(f"devices/{device_id}"),
+            data=update,
+            headers={"Content-type": "application/json; charset=UTF-8"}
+        )
+
+        LOGGER.debug(f"Response from update: {update_response}")
+
+        return DeviceUpdate(**update_response)
 
     async def async_get_devices(self) -> list[Device]:
         """Get devices from the API."""
@@ -68,12 +90,19 @@ class StarlingHomeHubApiClient:
 
     async def async_start_stream(self, device_id: str, sdp_offer: str) -> StartStream:
         """Start a WebRTC Stream."""
+        # sdp_offer = sdp_offer.replace("\n", "")
+        data = {"offer": sdp_offer}
+        LOGGER.debug(f"Starting stream for device {
+            device_id} with {data}")
+
         start_stream_response = await self._api_wrapper(
             method="post",
             url=self.get_api_url_for_endpoint(f"devices/{device_id}/stream"),
-            data={"offer": base64.b64encode(sdp_offer.encode()).decode()},
+            data=data,
             headers={"Content-type": "application/json; charset=UTF-8"}
         )
+
+        LOGGER.debug(f"Response from start stream: {start_stream_response}")
 
         return StartStream(**start_stream_response)
 
@@ -81,18 +110,29 @@ class StarlingHomeHubApiClient:
         """Stop a WebRTC Stream."""
         stop_stream_response = await self._api_wrapper(
             method="post",
-            url=self.get_api_url_for_endpoint(f"devices/{device_id}/stream/{stream_id}/stop"),
+            url=self.get_api_url_for_endpoint(
+                f"devices/{device_id}/stream/{stream_id}/stop"),
             headers={"Content-type": "application/json; charset=UTF-8"},
             data={}
         )
 
         return StreamStatus(**stop_stream_response)
 
+    async def async_get_camera_snapshot(self, device_id: str) -> bytes:
+        """Get a camera snapshot."""
+        return await self._api_wrapper(
+            method="get",
+            url=self.get_api_url_for_endpoint(
+                f"devices/{device_id}/snapshot"),
+            as_json=False
+        )
+
     async def async_extend_stream(self, device_id: str, stream_id: str) -> StreamStatus:
         """Extend a WebRTC Stream."""
         extend_stream_response = await self._api_wrapper(
             method="post",
-            url=self.get_api_url_for_endpoint(f"devices/{device_id}/stream/{stream_id}/extend"),
+            url=self.get_api_url_for_endpoint(
+                f"devices/{device_id}/stream/{stream_id}/extend"),
             headers={"Content-type": "application/json; charset=UTF-8"},
             data={}
         )
@@ -105,6 +145,7 @@ class StarlingHomeHubApiClient:
         url: str,
         data: dict | None = None,
         headers: dict | None = None,
+        as_json: bool = True,
     ) -> any:
         """Get information from the API."""
         try:
@@ -120,7 +161,7 @@ class StarlingHomeHubApiClient:
                         "Invalid credentials",
                     )
                 response.raise_for_status()
-                return await response.json()
+                return await response.json() if as_json else await response.read()
 
         except asyncio.TimeoutError as exception:
             raise StarlingHomeHubApiClientCommunicationError(

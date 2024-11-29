@@ -1,5 +1,7 @@
 # Starling Home Hub Integration
 
+## NOTE: As of v1.0.0 this integration requires v2 of the Starling Home Hub API. You will need to add the v2 URL to this integration for it to work. If you must use v1 then remain on v0. This isn't backwards compatible.
+
 [![ThomasLomas - ha-starlinghomehub](https://img.shields.io/static/v1?label=ThomasLomas&message=ha-starlinghomehub&color=blue&logo=github)](https://github.com/ThomasLomas/ha-starlinghomehub "Go to GitHub repo")
 [![stars - ha-starlinghomehub](https://img.shields.io/github/stars/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
 [![forks - ha-starlinghomehub](https://img.shields.io/github/forks/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
@@ -13,15 +15,38 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 
 ## Current Support
 
-- [x] Nest Protect
+> Since v2 of the Starling Home Hub API there is now more widespread support for devices, and as such this may now also include non-Nest devices.
+
+- [x] Smoke Detector
   - [x] Battery Status
   - [x] Carbon Monoxide Detection
   - [x] Smoke Detection
-  - [x] Occupancy Detection
-- [ ] Thermostat
-- [ ] Temperature Sensor
-- [ ] Camera (pre-2021 models)
-- [ ] Camera (2021/22 models)
+- [x] Thermostat
+  - [x] Cool
+  - [x] Heat
+  - [x] Auto
+  - [ ] Preset
+  - [ ] Fan
+  - [ ] Humidifer
+- [x] Sensor
+  - [x] Air Quality
+  - [x] Carbon Dioxide Level
+  - [x] Contact State (open/closed)
+  - [x] Temperature
+  - [x] Humidity %
+  - [x] Leak Detection
+  - [x] Light Level
+  - [x] Motion Detected
+  - [x] Occupancy Detected
+  - [x] PM10 Density
+  - [x] PM25 Density
+  - [x] VOC Density
+- [x] Camera
+  - [x] RTSP Support
+  - [ ] Web RTC Support
+  - [x] Presence
+  - [x] Packages
+  - [x] Doorbell
 - [ ] Guard
 - [ ] Detect
 - [ ] Nest x Yale Lock
@@ -38,6 +63,8 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 1. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Starling Home Hub Integration"
 
 ## Hub Setup
+
+> Ensure you are using the latest firmware (2024.43 or above)
 
 The SDC API is disabled by default. To enable the API, go to the Starling app, then:
 

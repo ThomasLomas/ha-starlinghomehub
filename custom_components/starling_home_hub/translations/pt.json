@@ -1,18 +1,48 @@
 {
-  "config": {
-    "step": {
-      "user": {
-        "description": "Para o URL, procure algo como isto: \"http://192.168.1.100:3080/api/connect/v1/\". Se precisar de ajuda com a configuração, consulte aqui: https://github.com/ThomasLomas/ha-starlinghomehub",
-        "data": {
-          "url": "URL Local de Ligação do Desenvolvedor",
-          "api_key": "Chave API"
+    "config": {
+        "step": {
+            "user": {
+                "description": "Visit your Starling Home Hub interface, either on your app, or via the web, and look for \"Starling Developer Connect\" to create credentials.\n\nThis integration requires 2024 firmware using the /v2/ API.",
+                "data": {
+                    "url": "URL Local de Ligação do Desenvolvedor",
+                    "api_key": "Chave API",
+                    "enable_rtsp_stream": "Enable RTSP Stream",
+                    "enable_webrtc_stream": "Enable WebRTC Stream",
+                    "rtsp_username": "RTSP Username",
+                    "rtsp_password": "RTSP Password"
+                },
+                "data_description": {
+                    "url": "Example: http://192.168.1.100:3080/api/connect/v2/",
+                    "api_key": "Ensure you have provided this the permissions required to perform all actions.",
+                    "rtsp_username": "Credentials need to be consistent across all cameras. If you do not require authorization for RTSP streaming then leave the fields blank.",
+                    "enable_webrtc_stream": "If both RTSP and WebRTC are enabled, WebRTC will be favored over RTSP where possible. If you have issues with WebRTC then enable RTSP streaming and disable WebRTC."
+                }
+            },
+            "reconfigure": {
+                "description": "Visit your Starling Home Hub interface, either on your app, or via the web, and look for \"Starling Developer Connect\" to create credentials.\n\nThis integration requires 2024 firmware using the /v2/ API.",
+                "data": {
+                    "url": "URL Local de Ligação do Desenvolvedor",
+                    "api_key": "Chave API",
+                    "enable_rtsp_stream": "Enable RTSP Stream",
+                    "enable_webrtc_stream": "Enable WebRTC Stream",
+                    "rtsp_username": "RTSP Username",
+                    "rtsp_password": "RTSP Password"
+                },
+                "data_description": {
+                    "url": "Example: http://192.168.1.100:3080/api/connect/v2/",
+                    "api_key": "Ensure you have provided this the permissions required to perform all actions.",
+                    "rtsp_username": "Credentials need to be consistent across all cameras. If you do not require authorization for RTSP streaming then leave the fields blank.",
+                    "enable_webrtc_stream": "If both RTSP and WebRTC are enabled, WebRTC will be favored over RTSP where possible. If you have issues with WebRTC then enable RTSP streaming and disable WebRTC."
+                }
+            }
+        },
+        "error": {
+            "auth": "A Chave API está incorreta.",
+            "connection": "Não foi possível ligar ao hub.",
+            "unknown": "Ocorreu um erro desconhecido."
+        },
+        "abort": {
+            "reconfigure_successful": "Reconfigure was successful."
         }
-      }
-    },
-    "error": {
-      "auth": "A Chave API está incorreta.",
-      "connection": "Não foi possível ligar ao hub.",
-      "unknown": "Ocorreu um erro desconhecido."
     }
-  }
 }
