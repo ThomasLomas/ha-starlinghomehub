@@ -1,7 +1,6 @@
 # Starling Home Hub Integration
 
-# NOTE: As of v1.0.0 of this integration this requires v2 of the Starling Home Hub API
-# If you must use v1 then remain on v0, although this is no longer maintained
+## NOTE: As of v1.0.0 this integration requires v2 of the Starling Home Hub API. You will need to add the v2 URL to this integration for it to work. If you must use v1 then remain on v0. This isn't backwards compatible.
 
 [![ThomasLomas - ha-starlinghomehub](https://img.shields.io/static/v1?label=ThomasLomas&message=ha-starlinghomehub&color=blue&logo=github)](https://github.com/ThomasLomas/ha-starlinghomehub "Go to GitHub repo")
 [![stars - ha-starlinghomehub](https://img.shields.io/github/stars/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
