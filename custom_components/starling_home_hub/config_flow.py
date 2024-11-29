@@ -5,7 +5,6 @@ from __future__ import annotations
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import CONF_API_KEY, CONF_URL
-from homeassistant.data_entry_flow import section
 from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
@@ -22,6 +21,8 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     MINOR_VERSION = 0
 
     def create_schema(self, user_input: dict | None = None) -> vol.Schema:
+        """Create schema."""
+
         return vol.Schema(
             {
                 vol.Required(
@@ -49,7 +50,8 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     async def validate_credentials(self, user_input: dict, errors: dict[str, str]) -> dict[str, str]:
-        """Validates and populates errors if needed."""
+        """Validate and populate errors if needed."""
+
         try:
             await self._test_credentials(
                 url=user_input[CONF_URL],
@@ -72,6 +74,7 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         user_input: dict | None = None,
     ) -> config_entries.FlowResult:
         """Handle a flow initialized by the user."""
+
         errors = {}
         if user_input is not None:
             errors = await self.validate_credentials(user_input, errors)
@@ -89,6 +92,8 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     async def async_step_reconfigure(self, user_input: dict | None = None) -> config_entries.FlowResult:
+        """Handle reconfiguration of existing entry."""
+
         reconfigure_entry = self._get_reconfigure_entry()
         errors = {}
 
@@ -113,6 +118,7 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def _test_credentials(self, url: str, api_key: str) -> None:
         """Validate credentials."""
+
         client = StarlingHomeHubApiClient(
             url=url,
             api_key=api_key,

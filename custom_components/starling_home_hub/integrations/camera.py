@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
-from homeassistant.components.stream import CONF_EXTRA_PART_WAIT_TIME
 from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import PERCENTAGE, Platform
 from homeassistant.helpers.entity import EntityCategory

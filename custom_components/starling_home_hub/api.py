@@ -119,7 +119,7 @@ class StarlingHomeHubApiClient:
         return StreamStatus(**stop_stream_response)
 
     async def async_get_camera_snapshot(self, device_id: str) -> bytes:
-        """Gets a camera snapshot."""
+        """Get a camera snapshot."""
         return await self._api_wrapper(
             method="get",
             url=self.get_api_url_for_endpoint(
