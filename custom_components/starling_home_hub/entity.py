@@ -26,6 +26,7 @@ class StarlingHomeHubEntity(CoordinatorEntity):
     device_id: str
 
     _attr_attribution = ATTRIBUTION
+    coordinator: StarlingHomeHubDataUpdateCoordinator
 
     def __init__(self, coordinator: StarlingHomeHubDataUpdateCoordinator) -> None:
         """Initialize."""

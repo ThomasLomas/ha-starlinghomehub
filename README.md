@@ -42,7 +42,8 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
   - [x] PM25 Density
   - [x] VOC Density
 - [x] Camera
-  - [ ] Live Camera Feed
+  - [x] RTSP Support
+  - [ ] Web RTC Support
   - [x] Presence
   - [x] Packages
   - [x] Doorbell

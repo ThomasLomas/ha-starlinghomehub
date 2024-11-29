@@ -1,7 +1,9 @@
 {
   "domain": "starling_home_hub",
   "name": "Starling Home Hub Integration",
-  "codeowners": ["@ThomasLomas"],
+  "codeowners": [
+    "@ThomasLomas"
+  ],
   "config_flow": true,
   "dhcp": [
     {
@@ -11,5 +13,5 @@
   "documentation": "https://github.com/ThomasLomas/ha-starlinghomehub",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/ThomasLomas/ha-starlinghomehub/issues",
-  "version": "1.0.4"
+  "version": "1.0.5"
 }

@@ -13,7 +13,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.device_registry import DeviceEntry
 
 from custom_components.starling_home_hub.api import StarlingHomeHubApiClient
-from custom_components.starling_home_hub.const import DOMAIN, LOGGER, PLATFORMS
+from custom_components.starling_home_hub.const import CONF_ENABLE_RTSP_STREAM, CONF_ENABLE_WEBRTC_STREAM, CONF_RTSP_PASSWORD, CONF_RTSP_USERNAME, DOMAIN, LOGGER, PLATFORMS
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
 
 
@@ -67,5 +67,33 @@ async def async_remove_config_entry_device(
         LOGGER.warning(f"Not removing device {
                        starling_device_id} - still in use")
         return False
+
+    return True
+
+
+async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+    """Migrate old entry."""
+
+    LOGGER.debug("Migrating configuration from version %s.%s",
+                 config_entry.version, config_entry.minor_version)
+
+    if config_entry.version > 2:
+        # This means the user has downgraded from a future version
+        return False
+
+    if config_entry.version == 1:
+        new_options = {
+            CONF_ENABLE_RTSP_STREAM: False,
+            CONF_ENABLE_WEBRTC_STREAM: False,
+            CONF_RTSP_USERNAME: None,
+            CONF_RTSP_PASSWORD: None,
+        }
+        new_data = {**config_entry.data, **new_options}
+
+        hass.config_entries.async_update_entry(
+            config_entry, data=new_data, minor_version=0, version=2)
+
+    LOGGER.debug("Migration to configuration version %s.%s successful",
+                 config_entry.version, config_entry.minor_version)
 
     return True

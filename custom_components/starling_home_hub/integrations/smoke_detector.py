@@ -60,5 +60,21 @@ SMOKE_DETECTOR_PLATFORMS = {
             device_class=BinarySensorDeviceClass.BATTERY,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
+        StarlingHomeHubBinarySensorEntityDescription(
+            key="is_online",
+            name="Is Online",
+            relevant_fn=lambda device: "isOnline" in device,
+            value_fn=lambda device: device["isOnline"],
+            device_class=BinarySensorDeviceClass.CONNECTIVITY,
+            entity_category=EntityCategory.DIAGNOSTIC,
+        ),
+        StarlingHomeHubBinarySensorEntityDescription(
+            key="battery_charging",
+            name="Battery Charging",
+            relevant_fn=lambda device: "batteryIsCharging" in device,
+            value_fn=lambda device: device["batteryIsCharging"],
+            device_class=BinarySensorDeviceClass.BATTERY_CHARGING,
+            entity_category=EntityCategory.DIAGNOSTIC,
+        ),
     ]
 }

@@ -118,6 +118,15 @@ class StarlingHomeHubApiClient:
 
         return StreamStatus(**stop_stream_response)
 
+    async def async_get_camera_snapshot(self, device_id: str) -> bytes:
+        """Gets a camera snapshot."""
+        return await self._api_wrapper(
+            method="get",
+            url=self.get_api_url_for_endpoint(
+                f"devices/{device_id}/snapshot"),
+            as_json=False
+        )
+
     async def async_extend_stream(self, device_id: str, stream_id: str) -> StreamStatus:
         """Extend a WebRTC Stream."""
         extend_stream_response = await self._api_wrapper(
@@ -136,6 +145,7 @@ class StarlingHomeHubApiClient:
         url: str,
         data: dict | None = None,
         headers: dict | None = None,
+        as_json: bool = True,
     ) -> any:
         """Get information from the API."""
         try:
@@ -151,7 +161,7 @@ class StarlingHomeHubApiClient:
                         "Invalid credentials",
                     )
                 response.raise_for_status()
-                return await response.json()
+                return await response.json() if as_json else await response.read()
 
         except asyncio.TimeoutError as exception:
             raise StarlingHomeHubApiClientCommunicationError(

@@ -22,6 +22,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
 
     config_entry: ConfigEntry
     data: CoordinatorData
+    device_snapshots_cache: dict[str, bytes] = {}
 
     def __init__(
         self,
@@ -33,7 +34,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
             hass=hass,
             logger=LOGGER,
             name=DOMAIN,
-            update_interval=timedelta(seconds=5),
+            update_interval=timedelta(seconds=10),
         )
         self.client = client
 
@@ -52,6 +53,22 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
     async def update_device(self, device_id: str, update: dict) -> DeviceUpdate:
         """Update a device."""
         return await self.client.async_update_device(device_id=device_id, update=update)
+
+    async def get_snapshot(self, device_id: str) -> bytes:
+        """Get a snapshot. Caches for 10 seconds."""
+
+        if device_id in self.device_snapshots_cache and self.device_snapshots_cache[device_id]["expires"] > self.hass.loop.time():
+            LOGGER.debug(f"Using cached snapshot for device {device_id}")
+            return self.device_snapshots_cache[device_id]["snapshot"]
+
+        LOGGER.debug(f"Fetching new snapshot for device {device_id}")
+        new_snapshot = await self.client.async_get_camera_snapshot(device_id=device_id)
+        self.device_snapshots_cache[device_id] = {
+            "snapshot": new_snapshot,
+            "expires": self.hass.loop.time() + 10,
+        }
+
+        return new_snapshot
 
     async def fetch_data(self) -> CoordinatorData:
         """Fetch data for the devices."""
