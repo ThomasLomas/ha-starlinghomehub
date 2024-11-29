@@ -27,13 +27,13 @@ class StarlingHomeHubBaseCamera(StarlingHomeHubEntity, Camera):
         self._attr_supported_features = CameraEntityFeature.STREAM
         self._attr_is_streaming = True
         self._attr_has_entity_name = True
-        self.stream_options[CONF_EXTRA_PART_WAIT_TIME] = 3
 
         super().__init__(coordinator)
         Camera.__init__(self)
 
         device = self.get_device()
         self._attr_name = device.properties["name"]
+        self.stream_options[CONF_EXTRA_PART_WAIT_TIME] = 3
 
     @classmethod
     @functools.cache
