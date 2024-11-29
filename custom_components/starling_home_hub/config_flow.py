@@ -20,6 +20,7 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for Staring Home Hub."""
 
     VERSION = 1
+    MINOR_VERSION = 1
 
     async def async_step_user(
         self,
