@@ -40,7 +40,7 @@ BINARY_SENSOR_DESCRIPTIONS: list[BinarySensorEntityDescription] = [
     StarlingHomeHubNestProtectBinarySensorDescription(
         key="occupancy_detected",
         name="Occupancy Detected",
-        value_fn=lambda device: device["occupancyDetected"] if "occupancyDetected" in device else None,
+        value_fn=lambda device: device.get("occupancyDetected", None),
         device_class=BinarySensorDeviceClass.OCCUPANCY
     ),
     StarlingHomeHubNestProtectBinarySensorDescription(
