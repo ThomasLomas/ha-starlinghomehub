@@ -34,7 +34,8 @@ CAMERA_PLATFORMS = {
             name="Animal Detected",
             relevant_fn=lambda device: "animalDetected" in device,
             value_fn=lambda device: device["animalDetected"],
-            device_class=BinarySensorDeviceClass.MOTION
+            device_class=BinarySensorDeviceClass.MOTION,
+            icon="mdi:dog-side"
         ),
         StarlingHomeHubBinarySensorEntityDescription(
             key="doorbell_pushed",
