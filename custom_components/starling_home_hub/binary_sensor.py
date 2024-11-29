@@ -16,11 +16,13 @@ from .models import CoordinatorData, Device
 
 from dataclasses import dataclass
 
+
 @dataclass
 class StarlingHomeHubNestProtectBinarySensorDescription(BinarySensorEntityDescription):
     """Class to describe an Nest Protect sensor."""
 
     value_fn: Callable[[Device], StateType] | None = None
+
 
 BINARY_SENSOR_DESCRIPTIONS: list[BinarySensorEntityDescription] = [
     StarlingHomeHubNestProtectBinarySensorDescription(
@@ -38,7 +40,7 @@ BINARY_SENSOR_DESCRIPTIONS: list[BinarySensorEntityDescription] = [
     StarlingHomeHubNestProtectBinarySensorDescription(
         key="occupancy_detected",
         name="Occupancy Detected",
-        value_fn=lambda device: device["occupancyDetected"],
+        value_fn=lambda device: device["occupancyDetected"] if "occupancyDetected" in device else None,
         device_class=BinarySensorDeviceClass.OCCUPANCY
     ),
     StarlingHomeHubNestProtectBinarySensorDescription(
@@ -49,6 +51,7 @@ BINARY_SENSOR_DESCRIPTIONS: list[BinarySensorEntityDescription] = [
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
 ]
+
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up the sensor platform."""
@@ -69,6 +72,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
             )
 
     async_add_entities(entities, True)
+
 
 class StarlingHomeHubNestProtectSensor(StarlingHomeHubEntity, BinarySensorEntity):
     """Starling Home Hub Nest Protect Sensor class."""
@@ -92,4 +96,3 @@ class StarlingHomeHubNestProtectSensor(StarlingHomeHubEntity, BinarySensorEntity
     def is_on(self) -> bool:
         """Return the state of the sensor."""
         return self.entity_description.value_fn(self.get_device().properties)
-

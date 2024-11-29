@@ -29,14 +29,14 @@ SENSOR_DESCRIPTIONS: list[SensorEntityDescription] = [
     StarlingHomeHubNestProtectSensorDescription(
         key="smoke_detected_detail",
         name="Smoke Detected Detail",
-        value_fn=lambda device: device["smokeStateDetail"],
+        value_fn=lambda device: device["smokeStateDetail"] if "smokeStateDetail" in device else None,
         device_class=SensorDeviceClass.ENUM,
         options=["ok", "warn", "emergency"]
     ),
     StarlingHomeHubNestProtectSensorDescription(
         key="co_detected_detail",
         name="Carbon Monoxide Detected Detail",
-        value_fn=lambda device: device["coStateDetail"],
+        value_fn=lambda device: device["coStateDetail"] if "coStateDetail" in device else None,
         device_class=SensorDeviceClass.ENUM,
         options=["ok", "warn", "emergency"]
     )
