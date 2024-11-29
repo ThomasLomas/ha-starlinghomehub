@@ -4,16 +4,20 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from decimal import Decimal
+from typing import Any
 
-from homeassistant.components.binary_sensor import BinarySensorEntity, BinarySensorEntityDescription
-from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
+from homeassistant.components.binary_sensor import BinarySensorEntity
+from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.switch import SwitchEntity
 from homeassistant.core import callback
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from custom_components.starling_home_hub.const import ATTRIBUTION, DOMAIN
+from custom_components.starling_home_hub.const import ATTRIBUTION, DOMAIN, LOGGER
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
+from custom_components.starling_home_hub.integrations import (StarlingHomeHubBinarySensorEntityDescription,
+                                                              StarlingHomeHubSensorEntityDescription, StarlingHomeHubSwitchEntityDescription)
 from custom_components.starling_home_hub.models.api.device import Device
 
 
@@ -64,7 +68,7 @@ class StarlingHomeHubSensorEntity(StarlingHomeHubEntity, SensorEntity):
         self,
         device_id: str,
         coordinator: StarlingHomeHubDataUpdateCoordinator,
-        entity_description: SensorEntityDescription,
+        entity_description: StarlingHomeHubSensorEntityDescription,
     ) -> None:
         """Initialize the Sensor Entity class."""
 
@@ -88,7 +92,7 @@ class StarlingHomeHubBinarySensorEntity(StarlingHomeHubEntity, BinarySensorEntit
         self,
         device_id: str,
         coordinator: StarlingHomeHubDataUpdateCoordinator,
-        entity_description: BinarySensorEntityDescription,
+        entity_description: StarlingHomeHubBinarySensorEntityDescription,
     ) -> None:
         """Initialize the Binary Sensor class."""
 
@@ -103,3 +107,39 @@ class StarlingHomeHubBinarySensorEntity(StarlingHomeHubEntity, BinarySensorEntit
     def is_on(self) -> bool:
         """Return the state of the sensor."""
         return self.entity_description.value_fn(self.get_device().properties)
+
+
+class StarlingHomeHubSwitchEntity(StarlingHomeHubEntity, SwitchEntity):
+    """Starling Home Hub Switch Entity class."""
+
+    def __init__(
+        self,
+        device_id: str,
+        coordinator: StarlingHomeHubDataUpdateCoordinator,
+        entity_description: StarlingHomeHubSwitchEntityDescription,
+    ) -> None:
+        """Initialize the Switch class."""
+
+        self.device_id = device_id
+        self.coordinator = coordinator
+        self.entity_description = entity_description
+        self._attr_unique_id = f"{device_id}-{self.entity_description.key}"
+
+        super().__init__(coordinator)
+
+    @property
+    def is_on(self) -> bool:
+        """Return the state of the switch."""
+        return self.entity_description.value_fn(self.get_device().properties)
+
+    async def async_turn_on(self) -> None:
+        """Turn the switch on."""
+        await self.coordinator.update_device(self.device_id, {
+            self.entity_description.update_field: True
+        })
+
+    async def async_turn_off(self) -> None:
+        """Turn the switch off."""
+        await self.coordinator.update_device(self.device_id, {
+            self.entity_description.update_field: False
+        })

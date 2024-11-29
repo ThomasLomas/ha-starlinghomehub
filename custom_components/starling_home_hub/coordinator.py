@@ -33,7 +33,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
             hass=hass,
             logger=LOGGER,
             name=DOMAIN,
-            update_interval=timedelta(seconds=30),
+            update_interval=timedelta(seconds=5),
         )
         self.client = client
 

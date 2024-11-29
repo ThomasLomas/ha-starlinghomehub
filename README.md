@@ -41,8 +41,11 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
   - [x] PM10 Density
   - [x] PM25 Density
   - [x] VOC Density
-- [ ] Camera (pre-2021 models)
-- [ ] Camera (2021/22 models)
+- [x] Camera
+  - [ ] Live Camera Feed
+  - [x] Presence
+  - [x] Packages
+  - [x] Doorbell
 - [ ] Guard
 - [ ] Detect
 - [ ] Nest x Yale Lock

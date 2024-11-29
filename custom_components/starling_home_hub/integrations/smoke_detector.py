@@ -5,11 +5,12 @@ from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.const import CONCENTRATION_PARTS_PER_MILLION, PERCENTAGE, Platform
 from homeassistant.helpers.entity import EntityCategory
 
-from custom_components.starling_home_hub.integrations import StarlingHomeHubBinarySensorDescription, StarlingHomeHubSensorDescription
+from custom_components.starling_home_hub.integrations import (StarlingHomeHubBinarySensorEntityDescription,
+                                                              StarlingHomeHubSensorEntityDescription)
 
 SMOKE_DETECTOR_PLATFORMS = {
     Platform.SENSOR: [
-        StarlingHomeHubSensorDescription(
+        StarlingHomeHubSensorEntityDescription(
             key="co_detected_level",
             name="Carbon Monoxide Concentration",
             relevant_fn=lambda device: "coLevel" in device,
@@ -18,7 +19,7 @@ SMOKE_DETECTOR_PLATFORMS = {
             device_class=SensorDeviceClass.CO,
             state_class=SensorStateClass.MEASUREMENT,
         ),
-        StarlingHomeHubSensorDescription(
+        StarlingHomeHubSensorEntityDescription(
             key="battery_level",
             name="Battery Level",
             relevant_fn=lambda device: "batteryLevel" in device,
@@ -30,28 +31,28 @@ SMOKE_DETECTOR_PLATFORMS = {
         )
     ],
     Platform.BINARY_SENSOR: [
-        StarlingHomeHubBinarySensorDescription(
+        StarlingHomeHubBinarySensorEntityDescription(
             key="smoke_detected",
             name="Smoke Detected",
             relevant_fn=lambda device: "smokeDetected" in device,
             value_fn=lambda device: device["smokeDetected"],
             device_class=BinarySensorDeviceClass.SMOKE
         ),
-        StarlingHomeHubBinarySensorDescription(
+        StarlingHomeHubBinarySensorEntityDescription(
             key="co_detected",
             name="Carbon Monoxide Detected",
             relevant_fn=lambda device: "coDetected" in device,
             value_fn=lambda device: device["coDetected"],
             device_class=BinarySensorDeviceClass.CO
         ),
-        StarlingHomeHubBinarySensorDescription(
+        StarlingHomeHubBinarySensorEntityDescription(
             key="occupancy_detected",
             name="Occupancy Detected",
             relevant_fn=lambda device: "occupancyDetected" in device,
             value_fn=lambda device: device["occupancyDetected"],
             device_class=BinarySensorDeviceClass.OCCUPANCY
         ),
-        StarlingHomeHubBinarySensorDescription(
+        StarlingHomeHubBinarySensorEntityDescription(
             key="battery_status",
             name="Battery Status",
             value_fn=lambda device: device["batteryStatus"] != "normal",
