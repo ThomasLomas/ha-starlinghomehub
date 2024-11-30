@@ -1,7 +1,7 @@
 """Loader for Starling Home Hub entities."""
 
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Callable
 
 from homeassistant.const import Platform
 from homeassistant.helpers.entity import Entity

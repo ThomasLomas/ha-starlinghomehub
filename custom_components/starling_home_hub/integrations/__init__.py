@@ -9,8 +9,6 @@ from homeassistant.components.sensor import SensorEntityDescription
 from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.helpers.typing import StateType
 
-from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
-
 D = TypeVar("D")
 
 
