@@ -8,30 +8,22 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from custom_components.starling_home_hub.const import DOMAIN
+from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
 from custom_components.starling_home_hub.entity import StarlingHomeHubBinarySensorEntity
-from custom_components.starling_home_hub.integrations.const import DEVICE_CATEGORIES_TO_PLATFORMS
-from custom_components.starling_home_hub.models.coordinator import CoordinatorData
+from custom_components.starling_home_hub.integrations.loader import load_entities_for_platform
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up the binary sensor platform."""
 
-    coordinator = hass.data[DOMAIN][entry.entry_id]
-    entities: list[StarlingHomeHubBinarySensorEntity] = []
-    data: CoordinatorData = coordinator.data
+    coordinator: StarlingHomeHubDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
 
-    for device in data.devices.items():
-        if device[1].properties["category"] in DEVICE_CATEGORIES_TO_PLATFORMS:
-            platforms = DEVICE_CATEGORIES_TO_PLATFORMS[device[1].properties["category"]]
-            if Platform.BINARY_SENSOR in platforms:
-                for entity_description in platforms[Platform.BINARY_SENSOR]:
-                    if not entity_description.relevant_fn or entity_description.relevant_fn(device[1].properties):
-                        entities.append(
-                            StarlingHomeHubBinarySensorEntity(
-                                device_id=device[0],
-                                coordinator=coordinator,
-                                entity_description=entity_description
-                            )
-                        )
-
-    async_add_entities(entities, True)
+    async_add_entities(load_entities_for_platform(
+        coordinator, Platform.BINARY_SENSOR, lambda device_entity_description:
+            StarlingHomeHubBinarySensorEntity(
+                coordinator=coordinator,
+                entity_description=device_entity_description.entity_description,
+                device_id=device_entity_description.device.properties.get(
+                    "id")
+            )
+    ), True)

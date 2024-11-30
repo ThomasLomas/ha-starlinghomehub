@@ -9,6 +9,8 @@ from homeassistant.components.sensor import SensorEntityDescription
 from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.helpers.typing import StateType
 
+from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
+
 D = TypeVar("D")
 
 
@@ -35,3 +37,15 @@ class StarlingHomeHubSwitchEntityDescription(SwitchEntityDescription):
     value_fn: Callable[[D], StateType] | None = None
     relevant_fn: Callable[[D], StateType] | None = None
     update_field: str | None = None
+
+
+@dataclass
+class StarlingHomeHubEntityDescriptionFactory:
+    """Factory for creating entity descriptions."""
+
+    entities: Callable[[D], list[StarlingHomeHubSensorEntityDescription |
+                                 StarlingHomeHubBinarySensorEntityDescription | StarlingHomeHubSwitchEntityDescription]] | None = None
+
+
+ENTITY_DESCRIPTION_TYPES = StarlingHomeHubSensorEntityDescription | StarlingHomeHubBinarySensorEntityDescription | StarlingHomeHubSwitchEntityDescription
+ALL_ENTITY_DESCRIPTIONS_TYPES = ENTITY_DESCRIPTION_TYPES | StarlingHomeHubEntityDescriptionFactory

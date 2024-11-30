@@ -6,10 +6,10 @@ from homeassistant.const import (CONCENTRATION_MICROGRAMS_PER_CUBIC_METER, CONCE
                                  UnitOfTemperature)
 from homeassistant.helpers.entity import EntityCategory
 
-from custom_components.starling_home_hub.integrations import (StarlingHomeHubBinarySensorEntityDescription,
+from custom_components.starling_home_hub.integrations import (ALL_ENTITY_DESCRIPTIONS_TYPES, StarlingHomeHubBinarySensorEntityDescription,
                                                               StarlingHomeHubSensorEntityDescription)
 
-SENSOR_PLATFORMS = {
+SENSOR_PLATFORMS: dict[Platform, list[ALL_ENTITY_DESCRIPTIONS_TYPES]] = {
     Platform.SENSOR: [
         StarlingHomeHubSensorEntityDescription(
             key="current_temperature",

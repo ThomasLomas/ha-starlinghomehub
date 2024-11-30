@@ -8,10 +8,11 @@ from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import PERCENTAGE, Platform
 from homeassistant.helpers.entity import EntityCategory
 
-from custom_components.starling_home_hub.integrations import (StarlingHomeHubBinarySensorEntityDescription,
-                                                              StarlingHomeHubSensorEntityDescription, StarlingHomeHubSwitchEntityDescription)
+from custom_components.starling_home_hub.integrations import (ALL_ENTITY_DESCRIPTIONS_TYPES, StarlingHomeHubBinarySensorEntityDescription,
+                                                              StarlingHomeHubEntityDescriptionFactory, StarlingHomeHubSensorEntityDescription,
+                                                              StarlingHomeHubSwitchEntityDescription)
 
-CAMERA_PLATFORMS = {
+CAMERA_PLATFORMS: dict[Platform, list[ALL_ENTITY_DESCRIPTIONS_TYPES]] = {
     Platform.SENSOR: [
         StarlingHomeHubSensorEntityDescription(
             key="battery_level",
@@ -105,6 +106,17 @@ CAMERA_PLATFORMS = {
             value_fn=lambda device: device["isOnline"],
             device_class=BinarySensorDeviceClass.CONNECTIVITY,
             entity_category=EntityCategory.DIAGNOSTIC,
+        ),
+        StarlingHomeHubEntityDescriptionFactory(
+            entities=lambda device: [
+                StarlingHomeHubBinarySensorEntityDescription(
+                    key=f"zone_detected_{zone.split(':')[1]}",
+                    name=f"{zone.split(':')[1]} Detected",
+                    value_fn=lambda device: device.get(zone, None),
+                    device_class=BinarySensorDeviceClass.MOTION,
+                )
+                for zone in set(device) if zone.startswith("zoneActivityDetected:")
+            ]
         ),
     ],
     Platform.SWITCH: [
