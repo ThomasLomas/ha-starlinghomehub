@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import TypeVar
 
 from homeassistant.components.binary_sensor import BinarySensorEntityDescription
+from homeassistant.components.light import LightEntityDescription
 from homeassistant.components.sensor import SensorEntityDescription
 from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.helpers.typing import StateType

@@ -1,6 +1,7 @@
 """Constants specific to the integrations for the Starling Home Hub integration."""
 
 from custom_components.starling_home_hub.integrations.camera import CAMERA_PLATFORMS
+from custom_components.starling_home_hub.integrations.light import LIGHT_PLATFORMS
 from custom_components.starling_home_hub.integrations.sensor import SENSOR_PLATFORMS
 from custom_components.starling_home_hub.integrations.smoke_detector import SMOKE_DETECTOR_PLATFORMS
 
@@ -9,4 +10,5 @@ DEVICE_CATEGORIES_TO_PLATFORMS = {
     "cam": CAMERA_PLATFORMS,
     "smoke_co_detector": SMOKE_DETECTOR_PLATFORMS,
     "sensor": SENSOR_PLATFORMS,
+    "light": LIGHT_PLATFORMS,
 }
