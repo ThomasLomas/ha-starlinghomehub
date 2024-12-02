@@ -2,37 +2,37 @@
     "config": {
         "step": {
             "user": {
-                "description": "Visit your Starling Home Hub interface, either on your app, or via the web, and look for \"Starling Developer Connect\" to create credentials.\n\nThis integration requires 2024 firmware using the /v2/ API.",
+                "description": "Visite a interface do Starling Home Hub, na aplicação ou via web, e procure por \"Starling Developer Connect\" para criar credenciais.\n\nEsta integração requer firmware 2024 usando a API /v2/.",
                 "data": {
                     "url": "URL Local de Ligação do Desenvolvedor",
                     "api_key": "Chave API",
-                    "enable_rtsp_stream": "Enable RTSP Stream",
-                    "enable_webrtc_stream": "Enable WebRTC Stream",
-                    "rtsp_username": "RTSP Username",
-                    "rtsp_password": "RTSP Password"
+                    "enable_rtsp_stream": "Ativar Transmissão RTSP",
+                    "enable_webrtc_stream": "Ativar Transmissão WebRTC",
+                    "rtsp_username": "Nome de Utilizador RTSP",
+                    "rtsp_password": "Palavra-passe RTSP"
                 },
                 "data_description": {
-                    "url": "Example: http://192.168.1.100:3080/api/connect/v2/",
-                    "api_key": "Ensure you have provided this the permissions required to perform all actions.",
-                    "rtsp_username": "Credentials need to be consistent across all cameras. If you do not require authorization for RTSP streaming then leave the fields blank.",
-                    "enable_webrtc_stream": "If both RTSP and WebRTC are enabled, WebRTC will be favored over RTSP where possible. If you have issues with WebRTC then enable RTSP streaming and disable WebRTC."
+                    "url": "Exemplo: http://192.168.1.100:3080/api/connect/v2/",
+                    "api_key": "Certifique-se de fornecer as permissões necessárias para executar todas as ações.",
+                    "rtsp_username": "As credenciais precisam ser consistentes em todas as câmaras. Se não for necessária autorização para transmissão RTSP, deixe os campos em branco.",
+                    "enable_webrtc_stream": "Se ambas as transmissões RTSP e WebRTC estiverem ativadas, o WebRTC será favorecido, sempre que possível. Se tiver problemas com o WebRTC, ative a transmissão RTSP e desative o WebRTC."
                 }
             },
             "reconfigure": {
-                "description": "Visit your Starling Home Hub interface, either on your app, or via the web, and look for \"Starling Developer Connect\" to create credentials.\n\nThis integration requires 2024 firmware using the /v2/ API.",
+                "description": "Visite a interface do Starling Home Hub, na aplicação ou via web, e procure por \"Starling Developer Connect\" para criar credenciais.\n\nEsta integração requer firmware 2024 usando a API /v2/.",
                 "data": {
                     "url": "URL Local de Ligação do Desenvolvedor",
                     "api_key": "Chave API",
-                    "enable_rtsp_stream": "Enable RTSP Stream",
-                    "enable_webrtc_stream": "Enable WebRTC Stream",
-                    "rtsp_username": "RTSP Username",
-                    "rtsp_password": "RTSP Password"
+                    "enable_rtsp_stream": "Ativar Transmissão RTSP",
+                    "enable_webrtc_stream": "Ativar Transmissão WebRTC",
+                    "rtsp_username": "Nome de Utilizador RTSP",
+                    "rtsp_password": "Palavra-passe RTSP"
                 },
                 "data_description": {
-                    "url": "Example: http://192.168.1.100:3080/api/connect/v2/",
-                    "api_key": "Ensure you have provided this the permissions required to perform all actions.",
-                    "rtsp_username": "Credentials need to be consistent across all cameras. If you do not require authorization for RTSP streaming then leave the fields blank.",
-                    "enable_webrtc_stream": "If both RTSP and WebRTC are enabled, WebRTC will be favored over RTSP where possible. If you have issues with WebRTC then enable RTSP streaming and disable WebRTC."
+                    "url": "Exemplo: http://192.168.1.100:3080/api/connect/v2/",
+                    "api_key": "Certifique-se de fornecer as permissões necessárias para executar todas as ações.",
+                    "rtsp_username": "As credenciais precisam ser consistentes em todas as câmaras. Se não for necessária autorização para transmissão RTSP, deixe os campos em branco.",
+                    "enable_webrtc_stream": "Se ambas as transmissões RTSP e WebRTC estiverem ativadas, o WebRTC será favorecido, sempre que possível. Se tiver problemas com o WebRTC, ative a transmissão RTSP e desative o WebRTC."
                 }
             }
         },
@@ -42,7 +42,7 @@
             "unknown": "Ocorreu um erro desconhecido."
         },
         "abort": {
-            "reconfigure_successful": "Reconfigure was successful."
+            "reconfigure_successful": "A reconfiguração foi bem-sucedida."
         }
     }
 }
