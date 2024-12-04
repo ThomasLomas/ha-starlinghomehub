@@ -22,7 +22,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     # enable_webrtc_stream = entry.data.get("enable_webrtc_stream", False)
     enable_webrtc_stream = False
 
-    for device in filter(lambda device: device[1].properties["type"] == "camera", data.devices.items()):
+    for device in filter(lambda device: device[1].properties["category"] == "cam", data.devices.items()):
         if enable_webrtc_stream and "supportsWebRtcStreaming" in device[1].properties and device[1].properties["supportsWebRtcStreaming"]:
             entities.append(
                 StarlingHomeHubWebRTCCamera(
