@@ -1,21 +1,20 @@
 # Starling Home Hub Integration
 
-## NOTE: As of v1.0.0 this integration requires v2 of the Starling Home Hub API. You will need to add the v2 URL to this integration for it to work. If you must use v1 then remain on v0. This isn't backwards compatible.
-
 [![ThomasLomas - ha-starlinghomehub](https://img.shields.io/static/v1?label=ThomasLomas&message=ha-starlinghomehub&color=blue&logo=github)](https://github.com/ThomasLomas/ha-starlinghomehub "Go to GitHub repo")
 [![stars - ha-starlinghomehub](https://img.shields.io/github/stars/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
 [![forks - ha-starlinghomehub](https://img.shields.io/github/forks/ThomasLomas/ha-starlinghomehub?style=social)](https://github.com/ThomasLomas/ha-starlinghomehub)
 
-[![Validate](https://github.com/ThomasLomas/ha-starlinghomehub/workflows/Validate/badge.svg)](https://github.com/ThomasLomas/ha-starlinghomehub/actions?query=workflow:"Validate")
-[![GitHub tag](https://img.shields.io/github/tag/ThomasLomas/ha-starlinghomehub?include_prereleases=&sort=semver&color=blue)](https://github.com/ThomasLomas/ha-starlinghomehub/releases/)
-[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
-[![issues - ha-starlinghomehub](https://img.shields.io/github/issues/ThomasLomas/ha-starlinghomehub)](https://github.com/ThomasLomas/ha-starlinghomehub/issues)
+[![GitHub tag](https://img.shields.io/github/release/ThomasLomas/ha-starlinghomehub?include_prereleases=&sort=semver&style=flat-square)](https://github.com/ThomasLomas/ha-starlinghomehub/releases/)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/ThomasLomas/ha-starlinghomehub/validate.yml?style=flat-square)](https://github.com/ThomasLomas/ha-starlinghomehub/actions/workflows/validate.yml)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](#license)
+[![HACS](https://img.shields.io/badge/HACS-default-orange.svg?style=flat-square)](https://hacs.xyz)
+[![issues - ha-starlinghomehub](https://img.shields.io/github/issues/ThomasLomas/ha-starlinghomehub?style=flat-square)](https://github.com/ThomasLomas/ha-starlinghomehub/issues)
 
 This is a custom integration for Home Assistant for accessing the [Starling Home Hub](https://www.starlinghome.io/) via the Starling Developer Connect API. My work is unaffiliated with Starling LLC. This is for use at your own risk. I don't provide any warranties whatsoever.
 
-## Current Support
+Since v2 of the Starling Home Hub API there is now more widespread support for devices, and as such this may now also include non-Nest devices. To turn devices on/off use your Starling Hub App, or disable in Home Asisstant if you want to keep access for HomeKit.
 
-> Since v2 of the Starling Home Hub API there is now more widespread support for devices, and as such this may now also include non-Nest devices.
+## Current Support
 
 - [x] Smoke Detector
   - [x] Battery Status
@@ -54,6 +53,12 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 
 ## Installation
 
+### Install via HACS
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=ThomasLomas&repository=ha-starlinghomehub&category=integration)
+
+### Install Manually
+
 1. Using the tool of choice open the directory (folder) for your HA configuration (where you find `configuration.yaml`).
 1. If you do not have a `custom_components` directory (folder) there, you need to create it.
 1. In the `custom_components` directory (folder) create a new folder called `starling_home_hub`.
@@ -64,7 +69,7 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 
 ## Hub Setup
 
-> Ensure you are using the latest firmware (2024.43 or above)
+> Ensure you are using the latest firmware (2024.43 or above). You must provide a /v2/ URL for the API integration to work.
 
 The SDC API is disabled by default. To enable the API, go to the Starling app, then:
 
@@ -73,6 +78,7 @@ The SDC API is disabled by default. To enable the API, go to the Starling app, t
 3. Select the Enable HTTP Access and/or Enable HTTPS Access checkboxes.
 
 Access to the API requires creating an API key - one per app - with specific permissions that you set. To create an API key for your application:
+
 1. In the My API Keys section, press Create New API Key.
 2. Enter a name for your app/API key, and choose the permissions appropriate for your use case.
 3. Press Create API Key. Your API key (a 12-character opaque alphanumeric string) will then appear under My API Keys.
