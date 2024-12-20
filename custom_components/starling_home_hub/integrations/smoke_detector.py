@@ -76,5 +76,12 @@ SMOKE_DETECTOR_PLATFORMS = {
             device_class=BinarySensorDeviceClass.BATTERY_CHARGING,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
+        StarlingHomeHubBinarySensorEntityDescription(
+            key="alarm_silenced",
+            name="Alarm Silenced",
+            relevant_fn=lambda device: "alarmSilenced" in device,
+            value_fn=lambda device: device["alarmSilenced"],
+            device_class=BinarySensorDeviceClass.SAFETY,
+        ),
     ]
 }

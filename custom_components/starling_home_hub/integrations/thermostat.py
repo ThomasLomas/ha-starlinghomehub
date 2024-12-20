@@ -4,11 +4,13 @@ from typing import Any
 
 from homeassistant.components.climate import (ATTR_HVAC_MODE, ATTR_TARGET_TEMP_HIGH, ATTR_TARGET_TEMP_LOW, FAN_OFF, FAN_ON, ClimateEntity,
                                               ClimateEntityFeature, HVACAction, HVACMode)
-from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
+from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
+from homeassistant.const import ATTR_TEMPERATURE, PERCENTAGE, Platform, UnitOfTemperature
 from homeassistant.exceptions import HomeAssistantError
 
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
 from custom_components.starling_home_hub.entity import StarlingHomeHubEntity
+from custom_components.starling_home_hub.integrations import StarlingHomeHubSelectEntityDescription, StarlingHomeHubSensorEntityDescription
 
 MIN_TEMP = 10
 MAX_TEMP = 32
@@ -22,6 +24,41 @@ THERMOSTAT_MODE_MAP: dict[str, HVACMode] = {
     "heatCool": HVACMode.HEAT_COOL,
 }
 THERMOSTAT_INV_MODE_MAP = {v: k for k, v in THERMOSTAT_MODE_MAP.items()}
+
+THERMOSTAT_PLATFORMS = {
+    Platform.SENSOR: [
+        StarlingHomeHubSensorEntityDescription(
+            key="humidity_percent",
+            name="Humidity Percentage",
+            relevant_fn=lambda device: "humidityPercent" in device,
+            value_fn=lambda device: device["humidityPercent"],
+            native_unit_of_measurement=PERCENTAGE,
+            device_class=SensorDeviceClass.HUMIDITY,
+            state_class=SensorStateClass.MEASUREMENT,
+        ),
+        StarlingHomeHubSensorEntityDescription(
+            key="backplate_temperature",
+            name="Blackplate Temperature",
+            relevant_fn=lambda device: "backplateTemperature" in device,
+            value_fn=lambda device: device["backplateTemperature"],
+            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+            device_class=SensorDeviceClass.TEMPERATURE,
+            state_class=SensorStateClass.MEASUREMENT,
+        ),
+    ],
+    Platform.SELECT: [
+        StarlingHomeHubSelectEntityDescription(
+            key="display_temperature_units",
+            name="Display Temperature Units",
+            relevant_fn=lambda device: "displayTemperatureUnits" in device,
+            value_fn=lambda device: device["displayTemperatureUnits"],
+            icon_fn=lambda device: "mdi:temperature-celsius" if device[
+                "displayTemperatureUnits"] == "C" else "mdi:temperature-fahrenheit",
+            options=["C", "F"],
+            update_field="displayTemperatureUnits",
+        )
+    ],
+}
 
 
 class StarlingHomeHubThermostatEntity(StarlingHomeHubEntity, ClimateEntity):
