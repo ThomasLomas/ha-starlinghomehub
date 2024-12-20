@@ -6,6 +6,7 @@ from datetime import date, datetime
 from decimal import Decimal
 
 from homeassistant.components.binary_sensor import BinarySensorEntity
+from homeassistant.components.select import SelectEntity
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.core import callback
@@ -142,4 +143,41 @@ class StarlingHomeHubSwitchEntity(StarlingHomeHubEntity, SwitchEntity):
         """Turn the switch off."""
         await self.coordinator.update_device(self.device_id, {
             self.entity_description.update_field: False
+        })
+
+
+class StarlingHomeHubSelectEntity(StarlingHomeHubEntity, SelectEntity):
+    """Starling Home Hub Select Entity class."""
+
+    def __init__(
+        self,
+        device_id: str,
+        coordinator: StarlingHomeHubDataUpdateCoordinator,
+        entity_description: StarlingHomeHubSwitchEntityDescription,
+    ) -> None:
+        """Initialize the Select class."""
+
+        self.device_id = device_id
+        self.coordinator = coordinator
+        self.entity_description = entity_description
+        self._attr_unique_id = f"{device_id}-{self.entity_description.key}"
+
+        super().__init__(coordinator)
+
+    @property
+    def current_option(self) -> str | None:
+        """Return the current selected option."""
+        return self.entity_description.value_fn(self.get_device().properties)
+
+    @property
+    def icon(self) -> str | None:
+        """Return the icon."""
+        if self.entity_description.icon_fn:
+            return self.entity_description.icon_fn(self.get_device().properties)
+        return super().icon
+
+    async def async_select_option(self, option: str) -> None:
+        """Select an option."""
+        await self.coordinator.update_device(self.device_id, {
+            self.entity_description.update_field: option
         })

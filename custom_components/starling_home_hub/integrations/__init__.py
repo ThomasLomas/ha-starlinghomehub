@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import TypeVar
 
 from homeassistant.components.binary_sensor import BinarySensorEntityDescription
+from homeassistant.components.select import SelectEntityDescription
 from homeassistant.components.sensor import SensorEntityDescription
 from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.helpers.typing import StateType
@@ -35,3 +36,13 @@ class StarlingHomeHubSwitchEntityDescription(SwitchEntityDescription):
     value_fn: Callable[[D], StateType] | None = None
     relevant_fn: Callable[[D], StateType] | None = None
     update_field: str | None = None
+
+
+@dataclass
+class StarlingHomeHubSelectEntityDescription(SelectEntityDescription):
+    """Class to describe a home hub select."""
+
+    value_fn: Callable[[D], StateType] | None = None
+    relevant_fn: Callable[[D], StateType] | None = None
+    update_field: str | None = None
+    icon_fn: Callable[[D], str] | None = None
