@@ -77,6 +77,7 @@ class StarlingHomeHubSensorEntity(StarlingHomeHubEntity, SensorEntity):
         self.coordinator = coordinator
         self.entity_description = entity_description
         self._attr_unique_id = f"{device_id}-{self.entity_description.key}"
+        self._attr_has_entity_name = True
 
         super().__init__(coordinator)
 
@@ -101,6 +102,7 @@ class StarlingHomeHubBinarySensorEntity(StarlingHomeHubEntity, BinarySensorEntit
         self.coordinator = coordinator
         self.entity_description = entity_description
         self._attr_unique_id = f"{device_id}-{self.entity_description.key}"
+        self._attr_has_entity_name = True
 
         super().__init__(coordinator)
 
@@ -125,6 +127,7 @@ class StarlingHomeHubSwitchEntity(StarlingHomeHubEntity, SwitchEntity):
         self.coordinator = coordinator
         self.entity_description = entity_description
         self._attr_unique_id = f"{device_id}-{self.entity_description.key}"
+        self._attr_has_entity_name = True
 
         super().__init__(coordinator)
 
@@ -161,6 +164,7 @@ class StarlingHomeHubSelectEntity(StarlingHomeHubEntity, SelectEntity):
         self.coordinator = coordinator
         self.entity_description = entity_description
         self._attr_unique_id = f"{device_id}-{self.entity_description.key}"
+        self._attr_has_entity_name = True
 
         super().__init__(coordinator)
 
