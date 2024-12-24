@@ -23,4 +23,5 @@ PLATFORMS: list[Platform] = [
     Platform.SWITCH,
     Platform.CAMERA,
     Platform.SELECT,
+    Platform.LIGHT
 ]
