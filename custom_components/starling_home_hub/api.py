@@ -7,6 +7,7 @@ import socket
 
 import aiohttp
 import async_timeout
+from homeassistant.exceptions import HomeAssistantError
 
 from custom_components.starling_home_hub.const import LOGGER
 from custom_components.starling_home_hub.models.api.device import Device, DeviceUpdate
@@ -78,7 +79,25 @@ class StarlingHomeHubApiClient:
 
         LOGGER.debug(f"Response from update: {update_response}")
 
-        return DeviceUpdate(**update_response)
+        device_update = DeviceUpdate(**update_response)
+
+        if device_update.setStatus:
+            # Loop all the set status results and check if any errors
+            for key, value in device_update.setStatus.items():
+                if value == "READ_ONLY_PROPERTY":
+                    raise HomeAssistantError(
+                        f"Error setting {key}: Failed - property is read-only")
+                elif value == "INVALID_VALUE":
+                    raise HomeAssistantError(
+                        f"Error setting {key}: Failed - property value specified is invalid")
+                elif value == "PROPERTY_NOT_FOUND":
+                    raise HomeAssistantError(
+                        f"Error setting {key}: Failed - property specified does not exist")
+                elif value == "SET_ERROR":
+                    raise HomeAssistantError(
+                        f"Error setting {key}: Failed - the Google Home service reported an error trying to set the property")
+
+        return device_update
 
     async def async_get_devices(self) -> list[Device]:
         """Get devices from the API."""

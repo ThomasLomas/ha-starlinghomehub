@@ -1,4 +1,6 @@
-"""Base class for Starling Home Hub camera entities."""
+"""Starling Home Hub Camera class."""
+
+from __future__ import annotations
 
 import functools
 
@@ -7,7 +9,7 @@ from homeassistant.components.stream import CONF_EXTRA_PART_WAIT_TIME
 
 from custom_components.starling_home_hub.const import LOGGER
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
-from custom_components.starling_home_hub.entity import StarlingHomeHubEntity
+from custom_components.starling_home_hub.entities import StarlingHomeHubEntity
 from custom_components.starling_home_hub.integrations.camera_streams.const import PLACEHOLDER
 
 

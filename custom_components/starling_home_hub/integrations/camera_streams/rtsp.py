@@ -1,7 +1,7 @@
 """Specific code for RTSP camera streams."""
 
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
-from custom_components.starling_home_hub.integrations.camera_streams.base import StarlingHomeHubBaseCamera
+from custom_components.starling_home_hub.entities.camera import StarlingHomeHubBaseCamera
 
 
 class StarlingHomeHubRTSPCamera(StarlingHomeHubBaseCamera):

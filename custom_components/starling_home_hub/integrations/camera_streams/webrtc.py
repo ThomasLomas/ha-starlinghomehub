@@ -11,7 +11,7 @@ from homeassistant.helpers.event import async_track_point_in_utc_time
 
 from custom_components.starling_home_hub.const import LOGGER
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
-from custom_components.starling_home_hub.integrations.camera_streams.base import StarlingHomeHubBaseCamera
+from custom_components.starling_home_hub.entities.camera import StarlingHomeHubBaseCamera
 from custom_components.starling_home_hub.integrations.camera_streams.const import STREAM_EXPIRATION_BUFFER
 from custom_components.starling_home_hub.models.api.stream import StartStream
 

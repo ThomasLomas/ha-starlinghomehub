@@ -14,43 +14,6 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 
 Since v2 of the Starling Home Hub API there is now more widespread support for devices, and as such this may now also include non-Nest devices. To turn devices on/off use your Starling Hub App, or disable in Home Asisstant if you want to keep access for HomeKit.
 
-## Current Support
-
-- [x] Smoke Detector
-  - [x] Battery Status
-  - [x] Carbon Monoxide Detection
-  - [x] Smoke Detection
-- [x] Thermostat
-  - [x] Cool
-  - [x] Heat
-  - [x] Auto
-  - [ ] Preset
-  - [ ] Fan
-  - [ ] Humidifer
-- [x] Sensor
-  - [x] Air Quality
-  - [x] Carbon Dioxide Level
-  - [x] Contact State (open/closed)
-  - [x] Temperature
-  - [x] Humidity %
-  - [x] Leak Detection
-  - [x] Light Level
-  - [x] Motion Detected
-  - [x] Occupancy Detected
-  - [x] PM10 Density
-  - [x] PM25 Density
-  - [x] VOC Density
-- [x] Camera
-  - [x] RTSP Support
-  - [ ] Web RTC Support
-  - [x] Presence
-  - [x] Packages
-  - [x] Doorbell
-- [ ] Guard
-- [ ] Detect
-- [ ] Nest x Yale Lock
-- [ ] Nest Weather Service
-
 ## Installation
 
 ### Install via HACS
@@ -70,6 +33,8 @@ Since v2 of the Starling Home Hub API there is now more widespread support for d
 ## Hub Setup
 
 > Ensure you are using the latest firmware (2024.43 or above). You must provide a /v2/ URL for the API integration to work.
+
+> If your cameras are not detecting certain things, such as vehicles, then make sure that vehicle notifications is turned on in your Google Home app. Without notifications the Starling Home Hub won't get updates and thereby Home Assistant won't either.
 
 The SDC API is disabled by default. To enable the API, go to the Starling app, then:
 

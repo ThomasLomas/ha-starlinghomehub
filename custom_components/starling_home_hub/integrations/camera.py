@@ -8,8 +8,9 @@ from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import PERCENTAGE, Platform
 from homeassistant.helpers.entity import EntityCategory
 
-from custom_components.starling_home_hub.integrations import (StarlingHomeHubBinarySensorEntityDescription,
-                                                              StarlingHomeHubSensorEntityDescription, StarlingHomeHubSwitchEntityDescription)
+from custom_components.starling_home_hub.entities.binary_sensor import StarlingHomeHubBinarySensorEntityDescription
+from custom_components.starling_home_hub.entities.sensor import StarlingHomeHubSensorEntityDescription
+from custom_components.starling_home_hub.entities.switch import StarlingHomeHubSwitchEntityDescription
 
 CAMERA_PLATFORMS = {
     Platform.SENSOR: [

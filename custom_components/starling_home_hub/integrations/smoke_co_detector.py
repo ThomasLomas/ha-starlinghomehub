@@ -5,10 +5,10 @@ from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.const import CONCENTRATION_PARTS_PER_MILLION, PERCENTAGE, Platform
 from homeassistant.helpers.entity import EntityCategory
 
-from custom_components.starling_home_hub.integrations import (StarlingHomeHubBinarySensorEntityDescription,
-                                                              StarlingHomeHubSensorEntityDescription)
+from custom_components.starling_home_hub.entities.binary_sensor import StarlingHomeHubBinarySensorEntityDescription
+from custom_components.starling_home_hub.entities.sensor import StarlingHomeHubSensorEntityDescription
 
-SMOKE_DETECTOR_PLATFORMS = {
+SMOKE_CO_DETECTOR_PLATFORMS = {
     Platform.SENSOR: [
         StarlingHomeHubSensorEntityDescription(
             key="co_detected_level",

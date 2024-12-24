@@ -8,8 +8,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from custom_components.starling_home_hub.const import DOMAIN
-from custom_components.starling_home_hub.entity import StarlingHomeHubBinarySensorEntity
-from custom_components.starling_home_hub.integrations.const import DEVICE_CATEGORIES_TO_PLATFORMS
+from custom_components.starling_home_hub.entities.binary_sensor import StarlingHomeHubBinarySensorEntity
+from custom_components.starling_home_hub.integrations import DEVICE_CATEGORIES_TO_PLATFORMS
 from custom_components.starling_home_hub.models.coordinator import CoordinatorData
 
 
