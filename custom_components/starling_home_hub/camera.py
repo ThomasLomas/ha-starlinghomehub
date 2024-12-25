@@ -5,8 +5,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from custom_components.starling_home_hub.const import DOMAIN
-from custom_components.starling_home_hub.integrations.camera_streams.rtsp import StarlingHomeHubRTSPCamera
-from custom_components.starling_home_hub.integrations.camera_streams.webrtc import StarlingHomeHubWebRTCCamera
+from custom_components.starling_home_hub.integrations.camera_rtsp import StarlingHomeHubRTSPCamera
+from custom_components.starling_home_hub.integrations.camera_webrtc import StarlingHomeHubWebRTCCamera
 from custom_components.starling_home_hub.models.coordinator import CoordinatorData
 
 

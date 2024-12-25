@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import functools
+from pathlib import Path
 
 from homeassistant.components.camera import Camera, CameraEntityFeature
 from homeassistant.components.stream import CONF_EXTRA_PART_WAIT_TIME
@@ -10,7 +11,9 @@ from homeassistant.components.stream import CONF_EXTRA_PART_WAIT_TIME
 from custom_components.starling_home_hub.const import LOGGER
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
 from custom_components.starling_home_hub.entities import StarlingHomeHubEntity
-from custom_components.starling_home_hub.integrations.camera_streams.const import PLACEHOLDER
+
+
+PLACEHOLDER = Path(__file__).parent.parent / "camera_placeholder.png"
 
 
 class StarlingHomeHubBaseCamera(StarlingHomeHubEntity, Camera):

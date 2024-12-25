@@ -3,28 +3,16 @@
 from __future__ import annotations
 
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
-from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.components.switch import SwitchDeviceClass
-from homeassistant.const import PERCENTAGE, Platform
+from homeassistant.const import Platform
 from homeassistant.helpers.entity import EntityCategory
 
 from custom_components.starling_home_hub.entities.binary_sensor import StarlingHomeHubBinarySensorEntityDescription
-from custom_components.starling_home_hub.entities.sensor import StarlingHomeHubSensorEntityDescription
 from custom_components.starling_home_hub.entities.switch import StarlingHomeHubSwitchEntityDescription
+from custom_components.starling_home_hub.integrations.base import from_base_entities
 
-CAMERA_PLATFORMS = {
-    Platform.SENSOR: [
-        StarlingHomeHubSensorEntityDescription(
-            key="battery_level",
-            name="Battery Level",
-            relevant_fn=lambda device: "batteryLevel" in device,
-            value_fn=lambda device: device["batteryLevel"],
-            native_unit_of_measurement=PERCENTAGE,
-            device_class=SensorDeviceClass.BATTERY,
-            state_class=SensorStateClass.MEASUREMENT,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        )
-    ],
+
+CAMERA_PLATFORMS = from_base_entities({
     Platform.BINARY_SENSOR: [
         StarlingHomeHubBinarySensorEntityDescription(
             key="animal_detected",
@@ -91,22 +79,6 @@ CAMERA_PLATFORMS = {
             device_class=BinarySensorDeviceClass.MOTION,
             icon="mdi:car-estate"
         ),
-        StarlingHomeHubBinarySensorEntityDescription(
-            key="battery_charging",
-            name="Battery Charging",
-            relevant_fn=lambda device: "batteryIsCharging" in device,
-            value_fn=lambda device: device["batteryIsCharging"],
-            device_class=BinarySensorDeviceClass.BATTERY_CHARGING,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
-        StarlingHomeHubBinarySensorEntityDescription(
-            key="is_online",
-            name="Is Online",
-            relevant_fn=lambda device: "isOnline" in device,
-            value_fn=lambda device: device["isOnline"],
-            device_class=BinarySensorDeviceClass.CONNECTIVITY,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
     ],
     Platform.SWITCH: [
         StarlingHomeHubSwitchEntityDescription(
@@ -139,4 +111,4 @@ CAMERA_PLATFORMS = {
             device_class=SwitchDeviceClass.SWITCH
         ),
     ]
-}
+})

@@ -5,8 +5,9 @@ from homeassistant.const import PERCENTAGE, Platform, UnitOfTemperature
 
 from custom_components.starling_home_hub.entities.select import StarlingHomeHubSelectEntityDescription
 from custom_components.starling_home_hub.entities.sensor import StarlingHomeHubSensorEntityDescription
+from custom_components.starling_home_hub.integrations.base import from_base_entities
 
-THERMOSTAT_PLATFORMS = {
+THERMOSTAT_PLATFORMS = from_base_entities({
     Platform.SENSOR: [
         StarlingHomeHubSensorEntityDescription(
             key="humidity_percent",
@@ -39,4 +40,4 @@ THERMOSTAT_PLATFORMS = {
             update_field="displayTemperatureUnits",
         )
     ],
-}
+})

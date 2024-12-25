@@ -27,4 +27,5 @@ PLATFORMS: list[Platform] = [
     Platform.LOCK,
     Platform.COVER,
     Platform.VALVE,
+    Platform.VACUUM,
 ]
