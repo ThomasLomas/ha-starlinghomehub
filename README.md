@@ -46,6 +46,11 @@ Since v2 of the Starling Home Hub API there is now more widespread support for d
   - [x] Presence
   - [x] Packages
   - [x] Doorbell
+- [X] Light
+  - [X] On/off
+  - [X] Brightness
+  - [X] RGB Color
+  - [X] Color Temperature (Kelvin)
 - [ ] Guard
 - [ ] Detect
 - [ ] Nest x Yale Lock
