@@ -118,8 +118,7 @@ class StarlingHomeHubLightEntity(StarlingHomeHubEntity, LightEntity):
         """Convert brightness to the expected values of the target platform (HA = 0-255, Starling = 0-100)."""
         if target_platform == "starling":
             return round((brightness / 255) * 100)
-        else:
-            return round(brightness * 2.55)
+        return round(brightness * 2.55)
 
     @property
     def available(self) -> bool:
@@ -200,19 +199,6 @@ class StarlingHomeHubLightEntity(StarlingHomeHubEntity, LightEntity):
         if len(supported_modes) == 0:
             supported_modes.add(ColorMode.ONOFF)
         return supported_modes
-
-    # @property
-    # def supported_features(self) -> LightEntityFeature:
-    #     """Flag supported features."""
-    #     support_flags = LightEntityFeature(0)
-    #     device = self.get_device()
-    #     if "brightness" in device.properties:
-    #         support_flags |= SUPPORT_BRIGHTNESS
-    #     if "hue" in device.properties and "saturation" in device.properties:
-    #         support_flags |= SUPPORT_COLOR
-    #     if "colorTemperature" in device.properties:
-    #         support_flags |= SUPPORT_COLOR_TEMP
-    #     return support_flags
 
     async def async_set_color_temp(self, **kwargs: Any) -> None:
         """Set new color temperature."""
