@@ -57,7 +57,7 @@ class StarlingHomeHubEntity(CoordinatorEntity):
         """Handle updated data from the coordinator."""
         self.async_write_ha_state()
 
-    def get_device(self) -> Device:
+    def get_device(self) -> Device | None:
         """Get the actual device data from coordinator."""
         return self.coordinator.data.devices.get(self.device_id)
 
