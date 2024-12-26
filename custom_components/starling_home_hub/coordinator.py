@@ -52,7 +52,9 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def update_device(self, device_id: str, update: dict) -> DeviceUpdate:
         """Update a device."""
-        return await self.client.async_update_device(device_id=device_id, update=update)
+        device_update = await self.client.async_update_device(device_id=device_id, update=update)
+        await self.refresh_data()
+        return device_update
 
     async def get_snapshot(self, device_id: str) -> bytes:
         """Get a snapshot. Caches for 10 seconds."""

@@ -72,8 +72,6 @@ class StarlingHomeHubLightEntity(StarlingHomeHubEntity, LightEntity):
                 device_id=self.device_id,
                 update=_on_args,
             )
-
-            await self.coordinator.refresh_data()
         except Exception as err:
             raise HomeAssistantError(
                 f"Error turning {self.entity_id} on {
@@ -86,8 +84,6 @@ class StarlingHomeHubLightEntity(StarlingHomeHubEntity, LightEntity):
             await self.coordinator.update_device(
                 device_id=self.device_id, update={"isOn": False}
             )
-
-            await self.coordinator.refresh_data()
         except Exception as err:
             raise HomeAssistantError(
                 f"Error turning {self.entity_id} off {
@@ -205,7 +201,6 @@ class StarlingHomeHubLightEntity(StarlingHomeHubEntity, LightEntity):
             await self.coordinator.update_device(
                 device_id=self.device_id, update={"colorTemperature": temp}
             )
-            await self.coordinator.refresh_data()
         except Exception as err:
             raise HomeAssistantError(
                 f"Error setting {self.entity_id} color temperature to {
@@ -222,7 +217,6 @@ class StarlingHomeHubLightEntity(StarlingHomeHubEntity, LightEntity):
             await self.coordinator.update_device(
                 device_id=self.device_id, update={"brightness": brightness}
             )
-            await self.coordinator.refresh_data()
         except Exception as err:
             raise HomeAssistantError(
                 f"Error setting {self.entity_id} brightness to {
@@ -244,8 +238,6 @@ class StarlingHomeHubLightEntity(StarlingHomeHubEntity, LightEntity):
                     device_id=self.device_id,
                     update={"hue": hue, "saturation": saturation},
                 )
-
-                await self.coordinator.refresh_data()
             else:
                 raise Exception(
                     "Hue and Saturation are outside of the acceptable range: "
