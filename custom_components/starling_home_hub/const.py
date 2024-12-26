@@ -8,7 +8,11 @@ LOGGER: Logger = getLogger(__package__)
 
 NAME = "Starling Home Hub Integration"
 DOMAIN = "starling_home_hub"
+<<<<<<< HEAD
 VERSION = "1.2.0"
+=======
+VERSION = "1.1.1"
+>>>>>>> origin/main
 ATTRIBUTION = "Based on the Starling Home Hub Developer Connect API"
 
 CONF_ENABLE_RTSP_STREAM = "enable_rtsp_stream"
