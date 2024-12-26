@@ -10,7 +10,7 @@ from custom_components.starling_home_hub.entities.sensor import StarlingHomeHubS
 
 
 def from_base_entities(extra_entities: dict[Platform, list[EntityDescription]] = None) -> dict[Platform, list[EntityDescription]]:
-    """Base entities for all device integrations."""
+    """Establish base entities for all device integrations."""
     entities = {
         Platform.BINARY_SENSOR: [
             StarlingHomeHubBinarySensorEntityDescription(

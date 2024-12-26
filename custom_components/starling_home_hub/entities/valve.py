@@ -45,7 +45,7 @@ class StarlingHomeHubValveEntity(StarlingHomeHubEntity, ValveEntity):
     @property
     def is_closed(self) -> bool:
         """Returns if the valve is closed."""
-        return self.entity_description.value_fn(self.get_device().properties) == False
+        return not self.entity_description.value_fn(self.get_device().properties)
 
     async def async_open_valve(self) -> None:
         """Open the valve."""
