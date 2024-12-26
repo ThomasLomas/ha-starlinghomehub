@@ -1,4 +1,4 @@
-"""Garage Platform"""
+"""Garage Platform."""
 
 from homeassistant.components.cover import CoverDeviceClass
 from homeassistant.const import Platform

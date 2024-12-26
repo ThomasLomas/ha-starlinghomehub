@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 from homeassistant.components.fan import FanEntity, FanEntityFeature
 
 from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator
-from custom_components.starling_home_hub.entities import DeviceType, StarlingHomeHubEntity
+from custom_components.starling_home_hub.entities import StarlingHomeHubEntity
 
 
 class StarlingHomeHubFanEntity(StarlingHomeHubEntity, FanEntity):
@@ -25,17 +23,18 @@ class StarlingHomeHubFanEntity(StarlingHomeHubEntity, FanEntity):
         self._attr_unique_id = f"{device_id}-fan"
         self._attr_has_entity_name = True
 
-        device = self.get_device()
-
         self._attr_supported_features = (
             FanEntityFeature.TURN_ON,
             FanEntityFeature.TURN_OFF,
         )
 
+        super().__init__(coordinator)
+
+        device = self.get_device()
+        self._attr_name = device.properties["name"]
+
         if "fanSpeed" in device:
             self._attr_supported_features |= FanEntityFeature.SET_SPEED
-
-        super().__init__(coordinator)
 
     async def async_set_percentage(self, percentage: int) -> None:
         """Set the speed percentage of the fan."""
@@ -43,7 +42,7 @@ class StarlingHomeHubFanEntity(StarlingHomeHubEntity, FanEntity):
             "fanSpeed": percentage
         })
 
-    async def async_turn_on(self, percentage: Optional[int] = None) -> None:
+    async def async_turn_on(self, percentage: int | None = None) -> None:
         """Turn on the fan."""
         payload = {
             "isOn": True
