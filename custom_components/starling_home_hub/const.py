@@ -28,4 +28,5 @@ PLATFORMS: list[Platform] = [
     Platform.COVER,
     Platform.VALVE,
     Platform.VACUUM,
+    Platform.LIGHT,
 ]

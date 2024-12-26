@@ -100,15 +100,6 @@ CAMERA_PLATFORMS = from_base_entities({
             entity_category=EntityCategory.CONFIG,
             update_field="quietTime",
             device_class=SwitchDeviceClass.SWITCH
-        ),
-        StarlingHomeHubSwitchEntityDescription(
-            key="flood_light",
-            name="Flood Light",
-            relevant_fn=lambda device: "floodLightOn" in device,
-            value_fn=lambda device: device["floodLightOn"],
-            icon="mdi:light-flood-down",
-            update_field="floodLightOn",
-            device_class=SwitchDeviceClass.SWITCH
-        ),
+        )
     ]
 })
