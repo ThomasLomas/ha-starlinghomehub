@@ -103,7 +103,7 @@ class StarlingHomeHubThermostatEntity(StarlingHomeHubEntity, ClimateEntity):
     def available(self) -> bool:
         """Return device availability."""
         device = self.get_device()
-        return device != None and device.properties["isOnline"]
+        return device is not None and device.properties["isOnline"]
 
     @property
     def current_temperature(self) -> float | None:
