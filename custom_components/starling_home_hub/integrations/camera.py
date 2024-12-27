@@ -3,27 +3,53 @@
 from __future__ import annotations
 
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
-from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.components.switch import SwitchDeviceClass
-from homeassistant.const import PERCENTAGE, Platform
+from homeassistant.const import Platform
 from homeassistant.helpers.entity import EntityCategory
+from homeassistant.util import slugify
 
-from custom_components.starling_home_hub.integrations import (StarlingHomeHubBinarySensorEntityDescription,
-                                                              StarlingHomeHubSensorEntityDescription, StarlingHomeHubSwitchEntityDescription)
+from custom_components.starling_home_hub.entities.binary_sensor import (StarlingHomeHubBinarySensorEntityDescription,
+                                                                        StarlingHomeHubBinarySensorEntityDescriptionFactory)
+from custom_components.starling_home_hub.entities.switch import StarlingHomeHubSwitchEntityDescription
+from custom_components.starling_home_hub.integrations.base import from_base_entities
 
-CAMERA_PLATFORMS = {
-    Platform.SENSOR: [
-        StarlingHomeHubSensorEntityDescription(
-            key="battery_level",
-            name="Battery Level",
-            relevant_fn=lambda device: "batteryLevel" in device,
-            value_fn=lambda device: device["batteryLevel"],
-            native_unit_of_measurement=PERCENTAGE,
-            device_class=SensorDeviceClass.BATTERY,
-            state_class=SensorStateClass.MEASUREMENT,
-            entity_category=EntityCategory.DIAGNOSTIC,
+
+def get_camera_dynamic_binary_sensor_entities(device: dict) -> list[StarlingHomeHubBinarySensorEntityDescription]:
+    """Get dynamic entities for the camera platform."""
+    entity_descriptions = []
+
+    for key in [
+            key for key in device if "zoneActivityDetected:" in key]:
+        zoneName = key.replace("zoneActivityDetected:", "")
+        entity_descriptions.append(
+            StarlingHomeHubBinarySensorEntityDescription(
+                key="zone_activity_detected_" + slugify(zoneName),
+                name=zoneName + " Detected",
+                relevant_fn=lambda device: key in device,
+                value_fn=lambda device: device[key],
+                device_class=BinarySensorDeviceClass.MOTION
+            )
         )
-    ],
+
+    for key in [
+            key for key in device if "faceDetected:" in key]:
+        faceName = key.replace("faceDetected:", "")
+        entity_descriptions.append(
+            StarlingHomeHubBinarySensorEntityDescription(
+                key="face_detected_" + slugify(faceName),
+                name=faceName + " Detected",
+                relevant_fn=lambda device: key in device,
+                value_fn=lambda device: device[key],
+                device_class=BinarySensorDeviceClass.MOTION,
+                icon="mdi:face-recognition",
+                entity_registry_enabled_default=False
+            )
+        )
+
+    return entity_descriptions
+
+
+CAMERA_PLATFORMS = from_base_entities({
     Platform.BINARY_SENSOR: [
         StarlingHomeHubBinarySensorEntityDescription(
             key="animal_detected",
@@ -90,22 +116,10 @@ CAMERA_PLATFORMS = {
             device_class=BinarySensorDeviceClass.MOTION,
             icon="mdi:car-estate"
         ),
-        StarlingHomeHubBinarySensorEntityDescription(
-            key="battery_charging",
-            name="Battery Charging",
-            relevant_fn=lambda device: "batteryIsCharging" in device,
-            value_fn=lambda device: device["batteryIsCharging"],
-            device_class=BinarySensorDeviceClass.BATTERY_CHARGING,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
-        StarlingHomeHubBinarySensorEntityDescription(
-            key="is_online",
-            name="Is Online",
-            relevant_fn=lambda device: "isOnline" in device,
-            value_fn=lambda device: device["isOnline"],
-            device_class=BinarySensorDeviceClass.CONNECTIVITY,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
+        StarlingHomeHubBinarySensorEntityDescriptionFactory(
+            make_entity_descriptions=lambda device: get_camera_dynamic_binary_sensor_entities(
+                device)
+        )
     ],
     Platform.SWITCH: [
         StarlingHomeHubSwitchEntityDescription(
@@ -127,15 +141,6 @@ CAMERA_PLATFORMS = {
             entity_category=EntityCategory.CONFIG,
             update_field="quietTime",
             device_class=SwitchDeviceClass.SWITCH
-        ),
-        StarlingHomeHubSwitchEntityDescription(
-            key="flood_light",
-            name="Flood Light",
-            relevant_fn=lambda device: "floodLightOn" in device,
-            value_fn=lambda device: device["floodLightOn"],
-            icon="mdi:light-flood-down",
-            update_field="floodLightOn",
-            device_class=SwitchDeviceClass.SWITCH
-        ),
+        )
     ]
-}
+})

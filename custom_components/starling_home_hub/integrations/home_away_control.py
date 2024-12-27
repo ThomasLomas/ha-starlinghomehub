@@ -3,7 +3,7 @@
 from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.const import Platform
 
-from custom_components.starling_home_hub.integrations import StarlingHomeHubSwitchEntityDescription
+from custom_components.starling_home_hub.entities.switch import StarlingHomeHubSwitchEntityDescription
 
 HOME_AWAY_CONTROL_PLATFORMS = {
     Platform.SWITCH: [

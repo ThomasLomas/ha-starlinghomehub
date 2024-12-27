@@ -4,13 +4,20 @@ from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.const import (CONCENTRATION_MICROGRAMS_PER_CUBIC_METER, CONCENTRATION_PARTS_PER_MILLION, LIGHT_LUX, PERCENTAGE, Platform,
                                  UnitOfTemperature)
-from homeassistant.helpers.entity import EntityCategory
 
-from custom_components.starling_home_hub.integrations import (StarlingHomeHubBinarySensorEntityDescription,
-                                                              StarlingHomeHubSensorEntityDescription)
+from custom_components.starling_home_hub.entities.binary_sensor import StarlingHomeHubBinarySensorEntityDescription
+from custom_components.starling_home_hub.entities.sensor import StarlingHomeHubSensorEntityDescription
+from custom_components.starling_home_hub.integrations.base import from_base_entities
 
-SENSOR_PLATFORMS = {
+SENSOR_PLATFORMS = from_base_entities({
     Platform.SENSOR: [
+        StarlingHomeHubSensorEntityDescription(
+            key="air_quality",
+            name="Air Quality",
+            relevant_fn=lambda device: "airQuality" in device,
+            value_fn=lambda device: device["airQuality"],
+            state_class=SensorStateClass.MEASUREMENT,
+        ),
         StarlingHomeHubSensorEntityDescription(
             key="current_temperature",
             name="Current Temperature",
@@ -77,6 +84,13 @@ SENSOR_PLATFORMS = {
     ],
     Platform.BINARY_SENSOR: [
         StarlingHomeHubBinarySensorEntityDescription(
+            key="carbon_dioxide_detected",
+            name="Carbon Dioxide Detected",
+            relevant_fn=lambda device: "carbonDioxideDetected" in device,
+            value_fn=lambda device: device["carbonDioxideDetected"],
+            device_class=BinarySensorDeviceClass.GAS
+        ),
+        StarlingHomeHubBinarySensorEntityDescription(
             key="contact_state",
             name="Contact Sensor",
             relevant_fn=lambda device: "contactState" in device,
@@ -104,29 +118,5 @@ SENSOR_PLATFORMS = {
             value_fn=lambda device: device["occupancyDetected"],
             device_class=BinarySensorDeviceClass.OCCUPANCY
         ),
-        StarlingHomeHubBinarySensorEntityDescription(
-            key="is_online",
-            name="Is Online",
-            relevant_fn=lambda device: "isOnline" in device,
-            value_fn=lambda device: device["isOnline"],
-            device_class=BinarySensorDeviceClass.CONNECTIVITY,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
-        StarlingHomeHubBinarySensorEntityDescription(
-            key="battery_charging",
-            name="Battery Charging",
-            relevant_fn=lambda device: "batteryIsCharging" in device,
-            value_fn=lambda device: device["batteryIsCharging"],
-            device_class=BinarySensorDeviceClass.BATTERY_CHARGING,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
-        # https://github.com/home-assistant/architecture/discussions/690
-        # StarlingHomeHubBinarySensorDescription(
-        #     key="carbon_dioxide_detected",
-        #     name="Carbon Dioxide Detected",
-        #     relevant_fn=lambda device: "carbonDioxideDetected" in device,
-        #     value_fn=lambda device: device["carbonDioxideDetected"],
-        #     device_class=BinarySensorDeviceClass.CO2
-        # ),
     ],
-}
+})
