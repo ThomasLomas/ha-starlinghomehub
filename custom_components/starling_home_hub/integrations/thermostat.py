@@ -20,7 +20,7 @@ THERMOSTAT_PLATFORMS = from_base_entities({
         ),
         StarlingHomeHubSensorEntityDescription(
             key="backplate_temperature",
-            name="Blackplate Temperature",
+            name="Backplate Temperature",
             relevant_fn=lambda device: "backplateTemperature" in device,
             value_fn=lambda device: device["backplateTemperature"],
             native_unit_of_measurement=UnitOfTemperature.CELSIUS,
