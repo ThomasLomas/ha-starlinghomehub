@@ -15,11 +15,11 @@ from custom_components.starling_home_hub.integrations.base import from_base_enti
 
 
 def get_camera_dynamic_binary_sensor_entities(device: dict) -> list[StarlingHomeHubBinarySensorEntityDescription]:
-    """Gets dynamic entities for the camera platform."""
+    """Get dynamic entities for the camera platform."""
     entity_descriptions = []
 
     for key in [
-            key for key in device.keys() if "zoneActivityDetected:" in key]:
+            key for key in device if "zoneActivityDetected:" in key]:
         zoneName = key.replace("zoneActivityDetected:", "")
         entity_descriptions.append(
             StarlingHomeHubBinarySensorEntityDescription(
@@ -32,7 +32,7 @@ def get_camera_dynamic_binary_sensor_entities(device: dict) -> list[StarlingHome
         )
 
     for key in [
-            key for key in device.keys() if "faceDetected:" in key]:
+            key for key in device if "faceDetected:" in key]:
         faceName = key.replace("faceDetected:", "")
         entity_descriptions.append(
             StarlingHomeHubBinarySensorEntityDescription(

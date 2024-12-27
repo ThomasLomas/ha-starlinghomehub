@@ -21,7 +21,7 @@ class StarlingHomeHubBinarySensorEntityDescription(BinarySensorEntityDescription
 
 
 @dataclass
-class StarlingHomeHubBinarySensorEntityDescriptionFactory():
+class StarlingHomeHubBinarySensorEntityDescriptionFactory:
     """Class to describe a home hub binary sensor factory."""
 
     make_entity_descriptions: Callable[[DeviceType],
