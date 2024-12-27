@@ -20,6 +20,14 @@ class StarlingHomeHubBinarySensorEntityDescription(BinarySensorEntityDescription
     relevant_fn: Callable[[DeviceType], StateType] | None = None
 
 
+@dataclass
+class StarlingHomeHubBinarySensorEntityDescriptionFactory():
+    """Class to describe a home hub binary sensor factory."""
+
+    make_entity_descriptions: Callable[[DeviceType],
+                                       list[StarlingHomeHubBinarySensorEntityDescription]]
+
+
 class StarlingHomeHubBinarySensorEntity(StarlingHomeHubEntity, BinarySensorEntity):
     """Starling Home Hub Binary Sensor Entity class."""
 
