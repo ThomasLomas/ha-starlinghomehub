@@ -16,7 +16,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     entities: list[StarlingHomeHubLightEntity] = []
     data: CoordinatorData = coordinator.data
 
-    for device in filter(lambda device: device[1].properties["type"] == "light", data.devices.items()):
+    for device in filter(lambda device: device[1].properties["type"] == "light" or device[1].properties["category"] == "diffuser", data.devices.items()):
         entities.append(
             StarlingHomeHubLightEntity(
                 device_id=device[0],
