@@ -6,7 +6,8 @@ import asyncio
 from collections.abc import Callable
 from datetime import datetime, timedelta, timezone
 
-from homeassistant.components.camera import StreamType, WebRTCAnswer, WebRTCSendMessage
+from homeassistant.components.camera import StreamType, WebRTCAnswer, WebRTCClientConfiguration, WebRTCSendMessage
+from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_point_in_utc_time
 
 from custom_components.starling_home_hub.const import LOGGER
@@ -84,11 +85,36 @@ class StarlingHomeHubWebRTCCamera(StarlingHomeHubBaseCamera):
         """Invalidate the RTSP token when unloaded."""
 
         if self._stream:
-            LOGGER.debug("Invalidating stream")
-            await self.coordinator.stop_stream(self.device_id, self._stream.streamId)
+            LOGGER.debug("Stopping stream")
+            try:
+                await self.coordinator.stop_stream(self.device_id, self._stream.streamId)
+            except Exception as err:
+                LOGGER.warning("Failed to stop stream: %s", err)
 
         if self._stream_refresh_unsub:
             self._stream_refresh_unsub()
+
+        self._stream = None
+
+    @callback
+    def close_webrtc_session(self, session_id: str) -> None:
+        """Close a WebRTC session."""
+
+        if self._stream:
+            LOGGER.debug("Stopping stream")
+
+            async def stop_stream() -> None:
+                try:
+                    await self.coordinator.stop_stream(self.device_id, self._stream.streamId)
+                except Exception as err:
+                    LOGGER.warning("Failed to stop stream: %s", err)
+
+            self.hass.async_create_task(stop_stream())
+
+        if self._stream_refresh_unsub:
+            self._stream_refresh_unsub()
+
+        self._stream = None
 
     async def async_handle_async_webrtc_offer(
         self, offer_sdp: str, session_id: str, send_message: WebRTCSendMessage
@@ -100,3 +126,8 @@ class StarlingHomeHubWebRTCCamera(StarlingHomeHubBaseCamera):
             self._schedule_stream_refresh()
 
         send_message(WebRTCAnswer(self._stream.answer))
+
+    @callback
+    def _async_get_webrtc_client_configuration(self) -> WebRTCClientConfiguration:
+        """This data channel is required for the Starling / Nest integration."""
+        return WebRTCClientConfiguration(data_channel="dataSendChannel")
