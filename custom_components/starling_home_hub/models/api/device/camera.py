@@ -9,4 +9,4 @@ from custom_components.starling_home_hub.models.api.device.base import BaseDevic
 class CameraDevice(BaseDevice):
     """Class that reflects type=camera."""
 
-    supportsStreaming: bool
+    supportsWebRtcStreaming: bool

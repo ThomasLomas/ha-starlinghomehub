@@ -109,10 +109,9 @@ class StarlingHomeHubApiClient:
 
     async def async_start_stream(self, device_id: str, sdp_offer: str) -> StartStream:
         """Start a WebRTC Stream."""
-        # sdp_offer = sdp_offer.replace("\n", "")
         data = {"offer": sdp_offer}
         LOGGER.debug(f"Starting stream for device {
-            device_id} with {data}")
+            device_id}")
 
         start_stream_response = await self._api_wrapper(
             method="post",
