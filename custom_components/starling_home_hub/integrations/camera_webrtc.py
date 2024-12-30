@@ -129,5 +129,5 @@ class StarlingHomeHubWebRTCCamera(StarlingHomeHubBaseCamera):
 
     @callback
     def _async_get_webrtc_client_configuration(self) -> WebRTCClientConfiguration:
-        """This data channel is required for the Starling / Nest integration."""
+        """Create data channel required for an acceptable WebRTC offer."""
         return WebRTCClientConfiguration(data_channel="dataSendChannel")
