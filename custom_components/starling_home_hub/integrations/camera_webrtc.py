@@ -6,7 +6,8 @@ import asyncio
 from collections.abc import Callable
 from datetime import datetime, timedelta, timezone
 
-from homeassistant.components.camera import StreamType
+from homeassistant.components.camera import StreamType, WebRTCAnswer, WebRTCClientConfiguration, WebRTCSendMessage
+from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_point_in_utc_time
 
 from custom_components.starling_home_hub.const import LOGGER
@@ -84,21 +85,49 @@ class StarlingHomeHubWebRTCCamera(StarlingHomeHubBaseCamera):
         """Invalidate the RTSP token when unloaded."""
 
         if self._stream:
-            LOGGER.debug("Invalidating stream")
-            await self.coordinator.stop_stream(self.device_id, self._stream.streamId)
+            LOGGER.debug("Stopping stream")
+            try:
+                await self.coordinator.stop_stream(self.device_id, self._stream.streamId)
+            except Exception as err:
+                LOGGER.warning("Failed to stop stream: %s", err)
 
         if self._stream_refresh_unsub:
             self._stream_refresh_unsub()
 
-    async def async_handle_web_rtc_offer(self, offer_sdp: str) -> str | None:
-        """Return the source of the stream."""
+        self._stream = None
 
-        device = self.get_device()
+    @callback
+    def close_webrtc_session(self, session_id: str) -> None:
+        """Close a WebRTC session."""
 
-        if not device.properties["supportsStreaming"]:
-            return await super().async_handle_web_rtc_offer(offer_sdp)
+        if self._stream:
+            LOGGER.debug("Stopping stream")
 
-        self._stream = await self.coordinator.start_stream(device_id=self.device_id, sdp_offer=offer_sdp)
-        self._schedule_stream_refresh()
+            async def stop_stream() -> None:
+                try:
+                    await self.coordinator.stop_stream(self.device_id, self._stream.streamId)
+                except Exception as err:
+                    LOGGER.warning("Failed to stop stream: %s", err)
 
-        return self._stream.answer
+            self.hass.async_create_task(stop_stream())
+
+        if self._stream_refresh_unsub:
+            self._stream_refresh_unsub()
+
+        self._stream = None
+
+    async def async_handle_async_webrtc_offer(
+        self, offer_sdp: str, session_id: str, send_message: WebRTCSendMessage
+    ) -> None:
+        """Handle an async WebRTC offer from the frontend."""
+
+        if not self._stream:
+            self._stream = await self.coordinator.start_stream(device_id=self.device_id, sdp_offer=offer_sdp)
+            self._schedule_stream_refresh()
+
+        send_message(WebRTCAnswer(self._stream.answer))
+
+    @callback
+    def _async_get_webrtc_client_configuration(self) -> WebRTCClientConfiguration:
+        """Create data channel required for an acceptable WebRTC offer."""
+        return WebRTCClientConfiguration(data_channel="dataSendChannel")
