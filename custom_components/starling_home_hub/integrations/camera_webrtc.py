@@ -7,7 +7,7 @@ from collections.abc import Callable
 from datetime import datetime, timedelta, timezone
 from webrtc_models import RTCIceCandidate
 
-from homeassistant.components.camera import StreamType, WebRTCAnswer, WebRTCClientConfiguration, WebRTCSendMessage
+from homeassistant.components.camera import WebRTCAnswer, WebRTCClientConfiguration, WebRTCSendMessage
 from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_point_in_utc_time
 
