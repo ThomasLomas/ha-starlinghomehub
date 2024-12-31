@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 from collections.abc import Callable
 from datetime import datetime, timedelta, timezone
+from webrtc_models import RTCIceCandidate
 
 from homeassistant.components.camera import StreamType, WebRTCAnswer, WebRTCClientConfiguration, WebRTCSendMessage
 from homeassistant.core import callback
@@ -33,12 +34,6 @@ class StarlingHomeHubWebRTCCamera(StarlingHomeHubBaseCamera):
         self._stream_refresh_unsub: Callable[[], None] | None = None
 
         super().__init__(device_id, coordinator, "webrtc")
-
-    @property
-    def frontend_stream_type(self) -> StreamType | None:
-        """Return the type of stream supported by this camera."""
-
-        return StreamType.WEB_RTC
 
     async def stream_source(self) -> str | None:
         """Return stream source for the camera."""
@@ -95,6 +90,12 @@ class StarlingHomeHubWebRTCCamera(StarlingHomeHubBaseCamera):
             self._stream_refresh_unsub()
 
         self._stream = None
+
+    async def async_on_webrtc_candidate(
+        self, session_id: str, candidate: RTCIceCandidate
+    ) -> None:
+        """Ignore WebRTC candidates for Nest cloud based cameras."""
+        return
 
     @callback
     def close_webrtc_session(self, session_id: str) -> None:
