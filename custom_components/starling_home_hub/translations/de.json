@@ -1,0 +1,48 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Besuchen Sie die Benutzeroberfläche Ihres Starling Home Hubs, entweder über die App oder über das Web, und suchen Sie nach \"Starling Developer Connect\", um Zugangsdaten zu erstellen.\n\nDiese Integration erfordert die Firmware 2024 mit der /v2/ API.",
+        "data": {
+          "url": "Lokale Developer Connect URL",
+          "api_key": "API-Schlüssel",
+          "enable_rtsp_stream": "RTSP-Stream aktivieren",
+          "enable_webrtc_stream": "WebRTC-Stream aktivieren",
+          "rtsp_username": "RTSP-Benutzername",
+          "rtsp_password": "RTSP-Passwort"
+        },
+        "data_description": {
+          "url": "Beispiel: http://192.168.1.100:3080/api/connect/v2/",
+          "api_key": "Stellen Sie sicher, dass dieser Schlüssel die erforderlichen Berechtigungen für alle Aktionen besitzt.",
+          "rtsp_username": "Die Anmeldedaten müssen für alle Kameras einheitlich sein. Wenn Sie keine Autorisierung für RTSP-Streaming benötigen, lassen Sie die Felder leer.",
+          "enable_webrtc_stream": "Wenn sowohl RTSP als auch WebRTC aktiviert sind, wird WebRTC bevorzugt, wo möglich. Wenn Sie Probleme mit WebRTC haben, aktivieren Sie RTSP-Streaming und deaktivieren Sie WebRTC."
+        }
+      },
+      "reconfigure": {
+        "description": "Besuchen Sie die Benutzeroberfläche Ihres Starling Home Hubs, entweder über die App oder über das Web, und suchen Sie nach \"Starling Developer Connect\", um Zugangsdaten zu erstellen.\n\nDiese Integration erfordert die Firmware 2024 mit der /v2/ API.",
+        "data": {
+          "url": "Lokale Developer Connect URL",
+          "api_key": "API-Schlüssel",
+          "enable_rtsp_stream": "RTSP-Stream aktivieren",
+          "enable_webrtc_stream": "WebRTC-Stream aktivieren",
+          "rtsp_username": "RTSP-Benutzername",
+          "rtsp_password": "RTSP-Passwort"
+        },
+        "data_description": {
+          "url": "Beispiel: http://192.168.1.100:3080/api/connect/v2/",
+          "api_key": "Stellen Sie sicher, dass dieser Schlüssel die erforderlichen Berechtigungen für alle Aktionen besitzt.",
+          "rtsp_username": "Die Anmeldedaten müssen für alle Kameras einheitlich sein. Wenn Sie keine Autorisierung für RTSP-Streaming benötigen, lassen Sie die Felder leer.",
+          "enable_webrtc_stream": "Wenn sowohl RTSP als auch WebRTC aktiviert sind, wird WebRTC bevorzugt, wo möglich. Wenn Sie Probleme mit WebRTC haben, aktivieren Sie RTSP-Streaming und deaktivieren Sie WebRTC."
+        }
+      }
+    },
+    "error": {
+      "auth": "Der API-Schlüssel ist falsch.",
+      "connection": "Verbindung zum Hub konnte nicht hergestellt werden.",
+      "unknown": "Ein unbekannter Fehler ist aufgetreten."
+    },
+    "abort": {
+      "reconfigure_successful": "Die Neukonfiguration war erfolgreich."
+    }
+  }
+}
