@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import voluptuous as vol
-from homeassistant import config_entries
+from homeassistant.config_entries import ConfigFlow, FlowResult
 from homeassistant.const import CONF_API_KEY, CONF_URL
 from homeassistant.helpers import selector
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
@@ -14,7 +14,7 @@ from custom_components.starling_home_hub.const import (CONF_ENABLE_RTSP_STREAM, 
                                                        CONF_RTSP_USERNAME, DOMAIN, LOGGER)
 
 
-class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class StarlingHomeHubFlowHandler(ConfigFlow, domain=DOMAIN):
     """Config flow for Staring Home Hub."""
 
     VERSION = 2
@@ -72,7 +72,7 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_user(
         self,
         user_input: dict | None = None,
-    ) -> config_entries.FlowResult:
+    ) -> FlowResult:
         """Handle a flow initialized by the user."""
 
         errors = {}
@@ -91,7 +91,7 @@ class StarlingHomeHubFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             errors=errors,
         )
 
-    async def async_step_reconfigure(self, user_input: dict | None = None) -> config_entries.FlowResult:
+    async def async_step_reconfigure(self, user_input: dict | None = None) -> FlowResult:
         """Handle reconfiguration of existing entry."""
 
         reconfigure_entry = self._get_reconfigure_entry()
