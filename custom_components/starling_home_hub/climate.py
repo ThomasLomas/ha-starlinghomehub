@@ -1,22 +1,20 @@
 """Support for Starling Home Hub thermostats."""
 
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from custom_components.starling_home_hub.const import DOMAIN
 from custom_components.starling_home_hub.entities.thermostat import StarlingHomeHubThermostatEntity
-from custom_components.starling_home_hub.models.coordinator import CoordinatorData
+from custom_components.starling_home_hub.coordinator import StarlingHomeHubDataUpdateCoordinator, StarlingHomeHubConfigEntry
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+async def async_setup_entry(hass: HomeAssistant, entry: StarlingHomeHubConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up the climate / thermostat platform."""
 
-    coordinator = hass.data[DOMAIN][entry.entry_id]
+    coordinator: StarlingHomeHubDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
     entities: list[StarlingHomeHubThermostatEntity] = []
-    data: CoordinatorData = coordinator.data
 
-    for device in filter(lambda device: device[1].properties["type"] == "thermostat", data.devices.items()):
+    for device in filter(lambda device: device[1].properties["type"] == "thermostat", entry.runtime_data.devices.items()):
         entities.append(
             StarlingHomeHubThermostatEntity(
                 device_id=device[0],
@@ -24,4 +22,4 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
             )
         )
 
-    async_add_entities(entities, True)
+    async_add_entities(entities, update_before_add=True)

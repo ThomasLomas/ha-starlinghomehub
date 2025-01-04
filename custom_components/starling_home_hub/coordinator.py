@@ -16,18 +16,19 @@ from custom_components.starling_home_hub.models.api.device import Device, Device
 from custom_components.starling_home_hub.models.api.stream import StartStream, StreamStatus
 from custom_components.starling_home_hub.models.coordinator import CoordinatorData
 
+type StarlingHomeHubConfigEntry = ConfigEntry[CoordinatorData]
+
 
 class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
-    config_entry: ConfigEntry
-    data: CoordinatorData
-    device_snapshots_cache: dict[str, bytes] = {}
+    config_entry: StarlingHomeHubConfigEntry
 
     def __init__(
         self,
         hass: HomeAssistant,
         client: StarlingHomeHubApiClient,
+        config_entry: StarlingHomeHubConfigEntry
     ) -> None:
         """Initialize."""
         super().__init__(
@@ -35,6 +36,7 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
             logger=LOGGER,
             name=DOMAIN,
             update_interval=timedelta(seconds=10),
+            config_entry=config_entry,
         )
         self.client = client
 
@@ -59,13 +61,13 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
     async def get_snapshot(self, device_id: str) -> bytes:
         """Get a snapshot. Caches for 10 seconds."""
 
-        if device_id in self.device_snapshots_cache and self.device_snapshots_cache[device_id]["expires"] > self.hass.loop.time():
+        if device_id in self.config_entry.runtime_data.device_snapshots_cache and self.config_entry.runtime_data.device_snapshots_cache[device_id]["expires"] > self.hass.loop.time():
             LOGGER.debug(f"Using cached snapshot for device {device_id}")
-            return self.device_snapshots_cache[device_id]["snapshot"]
+            return self.config_entry.runtime_data.device_snapshots_cache[device_id]["snapshot"]
 
         LOGGER.debug(f"Fetching new snapshot for device {device_id}")
         new_snapshot = await self.client.async_get_camera_snapshot(device_id=device_id)
-        self.device_snapshots_cache[device_id] = {
+        self.config_entry.runtime_data.device_snapshots_cache[device_id] = {
             "snapshot": new_snapshot,
             "expires": self.hass.loop.time() + 10,
         }
@@ -83,9 +85,10 @@ class StarlingHomeHubDataUpdateCoordinator(DataUpdateCoordinator):
             full_device = await self.client.async_get_device(device_id=device["id"])
             full_devices[device["id"]] = full_device
 
-        self.data = CoordinatorData(devices=full_devices, status=status)
+        self.config_entry.runtime_data = CoordinatorData(
+            devices=full_devices, status=status)
 
-        return self.data
+        return self.config_entry.runtime_data
 
     async def refresh_data(self) -> bool:
         """Refresh data."""

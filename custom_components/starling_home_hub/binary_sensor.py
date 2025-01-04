@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -10,17 +9,16 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from custom_components.starling_home_hub.const import DOMAIN
 from custom_components.starling_home_hub.entities.binary_sensor import StarlingHomeHubBinarySensorEntity
 from custom_components.starling_home_hub.integrations import DEVICE_CATEGORIES_TO_PLATFORMS
-from custom_components.starling_home_hub.models.coordinator import CoordinatorData
+from custom_components.starling_home_hub.coordinator import StarlingHomeHubConfigEntry
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
+async def async_setup_entry(hass: HomeAssistant, entry: StarlingHomeHubConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     """Set up the binary sensor platform."""
 
     coordinator = hass.data[DOMAIN][entry.entry_id]
     entities: list[StarlingHomeHubBinarySensorEntity] = []
-    data: CoordinatorData = coordinator.data
 
-    for device in data.devices.items():
+    for device in entry.runtime_data.devices.items():
         if device[1].properties["category"] in DEVICE_CATEGORIES_TO_PLATFORMS:
             platforms = DEVICE_CATEGORIES_TO_PLATFORMS[device[1].properties["category"]]
             if Platform.BINARY_SENSOR in platforms:
@@ -43,4 +41,4 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                             )
                         )
 
-    async_add_entities(entities, True)
+    async_add_entities(entities, update_before_add=True)

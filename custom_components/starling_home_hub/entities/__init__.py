@@ -53,4 +53,4 @@ class StarlingHomeHubEntity(CoordinatorEntity):
 
     def get_device(self) -> Device:
         """Get the actual device data from coordinator."""
-        return self.coordinator.data.devices.get(self.device_id)
+        return self.coordinator.config_entry.runtime_data.devices.get(self.device_id)
