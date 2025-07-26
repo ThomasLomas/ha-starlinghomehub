@@ -247,9 +247,9 @@ class StarlingHomeHubThermostatEntity(StarlingHomeHubEntity, ClimateEntity):
         """Set new fan mode."""
         if fan_mode not in self.fan_modes:
             raise ValueError(f"Unsupported fan_mode '{fan_mode}'")
-        
+
         fan_state = fan_mode == FAN_ON
-        
+
         try:
             await self.coordinator.update_device(
                 device_id=self.device_id,
