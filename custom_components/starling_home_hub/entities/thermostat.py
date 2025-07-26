@@ -160,9 +160,9 @@ class StarlingHomeHubThermostatEntity(StarlingHomeHubEntity, ClimateEntity):
         # if "presetsAvailable" in device.properties:
         #     features |= ClimateEntityFeature.PRESET_MODE
 
-        # todo: fan support
-        # if "fanRunning" in device.properties:
-        #     features |= ClimateEntityFeature.FAN_MODE
+        # Enable fan support
+        if "fanRunning" in device.properties:
+            features |= ClimateEntityFeature.FAN_MODE
 
         return features
 
@@ -241,4 +241,22 @@ class StarlingHomeHubThermostatEntity(StarlingHomeHubEntity, ClimateEntity):
             raise HomeAssistantError(
                 f"Error setting {self.entity_id} HVAC mode to {
                     hvac_mode}: {err}"
+            ) from err
+
+    async def async_set_fan_mode(self, fan_mode: str) -> None:
+        """Set new fan mode."""
+        if fan_mode not in self.fan_modes:
+            raise ValueError(f"Unsupported fan_mode '{fan_mode}'")
+
+        fan_state = fan_mode == FAN_ON
+
+        try:
+            await self.coordinator.update_device(
+                device_id=self.device_id,
+                update={"fanRunning": fan_state}
+            )
+            await self.coordinator.refresh_data()
+        except Exception as err:
+            raise HomeAssistantError(
+                f"Error setting {self.entity_id} fan mode to {fan_mode}: {err}"
             ) from err

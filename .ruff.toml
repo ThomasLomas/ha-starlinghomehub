@@ -1,6 +1,6 @@
 # The contents of this file is based on https://github.com/home-assistant/core/blob/dev/pyproject.toml
 
-target-version = "py310"
+target-version = "py313"
 
 select = [
     "B007", # Loop control variable {name} not used within loop body
@@ -36,6 +36,8 @@ ignore = [
     "D411",  # Missing blank line before section
     "E501",  # line too long
     "E731",  # do not assign a lambda expression, use a def
+    "UP017", # Was a pain with timezone UTC
+    "UP041", # Needs testing
 ]
 
 [flake8-pytest-style]
