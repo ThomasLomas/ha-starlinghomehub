@@ -20,6 +20,8 @@ class StarlingHomeHubSelectEntityDescription(SelectEntityDescription):
     relevant_fn: Callable[[DeviceType], StateType] | None = None
     update_field: str | None = None
     icon_fn: Callable[[DeviceType], str] | None = None
+    options_fn: Callable[[DeviceType], list[str]] | None = None
+    prepend_none_option: bool = False
 
 
 class StarlingHomeHubSelectEntity(StarlingHomeHubEntity, SelectEntity):
@@ -39,6 +41,15 @@ class StarlingHomeHubSelectEntity(StarlingHomeHubEntity, SelectEntity):
         self._attr_unique_id = f"{device_id}-{self.entity_description.key}"
         self._attr_has_entity_name = True
 
+        if self.entity_description.options is not None:
+            self._attr_options = self.entity_description.options
+        elif self.entity_description.options_fn is not None:
+            self._attr_options = self.entity_description.options_fn(
+                self.get_device().properties)
+
+            if self.entity_description.prepend_none_option:
+                self._attr_options.insert(0, "None")
+
         super().__init__(coordinator)
 
     @property
@@ -55,6 +66,8 @@ class StarlingHomeHubSelectEntity(StarlingHomeHubEntity, SelectEntity):
 
     async def async_select_option(self, option: str) -> None:
         """Select an option."""
+        if self.entity_description.prepend_none_option and option == "None":
+            option = ""
         await self.coordinator.update_device(self.device_id, {
             self.entity_description.update_field: option
         })

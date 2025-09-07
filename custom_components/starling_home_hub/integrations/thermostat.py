@@ -38,6 +38,16 @@ THERMOSTAT_PLATFORMS = from_base_entities({
                 "displayTemperatureUnits"] == "C" else "mdi:temperature-fahrenheit",
             options=["C", "F"],
             update_field="displayTemperatureUnits",
+        ),
+        StarlingHomeHubSelectEntityDescription(
+            key="sensor_selected",
+            name="Sensor Selected",
+            relevant_fn=lambda device: "sensorSelected" in device and "sensorsAvailable" in device,
+            value_fn=lambda device: device["sensorSelected"],
+            options_fn=lambda device: device["sensorsAvailable"].split(","),
+            icon_fn=lambda device: "mdi:thermostat-box",
+            update_field="sensorSelected",
+            prepend_none_option=True
         )
     ],
 })
