@@ -19,7 +19,7 @@ class StarlingHomeHubLockEntityDescription(LockEntityDescription):
     current_state_field: str = "currentState"
     target_state_field: str = "targetState"
     relevant_fn: Callable[[DeviceType], StateType] | None = None
-    # icon_fn: Callable[[DeviceType], str] | None = None
+    icon_fn: Callable[[DeviceType], str] | None = None
 
 
 class StarlingHomeHubLockEntity(StarlingHomeHubEntity, LockEntity):
@@ -40,3 +40,32 @@ class StarlingHomeHubLockEntity(StarlingHomeHubEntity, LockEntity):
         self._attr_has_entity_name = True
 
         super().__init__(coordinator)
+
+    async def async_lock(self, **kwargs):
+        """Lock all or specified locks. A code to lock the lock with may optionally be specified."""
+        await self.coordinator.update_device(self.device_id, {
+            self.entity_description.target_state_field: "locked"
+        })
+
+    async def async_unlock(self, **kwargs):
+        """Unlock all or specified locks. A code to unlock the lock with may optionally be specified."""
+        await self.coordinator.update_device(self.device_id, {
+            self.entity_description.target_state_field: "unlocked"
+        })
+
+    @property
+    def icon(self) -> str | None:
+        """Return the icon."""
+        if self.entity_description.icon_fn:
+            return self.entity_description.icon_fn(self.get_device().properties)
+        return super().icon
+
+    @property
+    def is_locked(self) -> bool | None:
+        """Return true if the lock is locked."""
+        return self.get_device().properties["currentState"] == "locked"
+
+    @property
+    def is_jammed(self) -> bool | None:
+        """Return true if the lock is jammed (incomplete locking)."""
+        return self.get_device().properties["currentState"] == "jammed"
