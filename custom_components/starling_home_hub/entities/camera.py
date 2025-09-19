@@ -55,7 +55,8 @@ class StarlingHomeHubBaseCamera(StarlingHomeHubEntity, Camera):
     @property
     def is_on(self) -> bool:
         """Return True if the camera is on."""
-        return self.get_device() is not None and self.get_device().properties.get("cameraEnabled", False)
+        device = self.get_device()
+        return device is not None and device.properties.get("cameraEnabled", False)
 
     async def async_camera_image(
         self, width: int | None = None, height: int | None = None
