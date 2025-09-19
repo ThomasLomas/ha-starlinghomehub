@@ -50,12 +50,13 @@ class StarlingHomeHubBaseCamera(StarlingHomeHubEntity, Camera):
     def available(self) -> bool:
         """Return True if entity is available."""
         device = self.get_device()
-        return device is not None and device.properties["cameraEnabled"] and device.properties["isOnline"]
+        return device is not None and device.properties.get("cameraEnabled", False) and device.properties.get("isOnline", False)
 
     @property
     def is_on(self) -> bool:
         """Return True if the camera is on."""
-        return self.get_device().properties["cameraEnabled"]
+        device = self.get_device()
+        return device is not None and device.properties.get("cameraEnabled", False)
 
     async def async_camera_image(
         self, width: int | None = None, height: int | None = None
