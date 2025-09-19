@@ -24,6 +24,10 @@ body:
         required: true
       - label: This issue is not a duplicate issue of any [previous issues](https://github.com/ThomasLomas/ha-starlinghomehub/issues?q=is%3Aissue+label%3A%22bug%22+)..
         required: true
+      - label: My Starling Home Hub is running the latest firmware.
+        required: true
+      - label: My Home Assistant Integration is using Starling Home Hub API v2
+        required: true
 - type: textarea
   attributes:
     label: "Describe the issue"
@@ -43,7 +47,7 @@ body:
     required: true
 - type: textarea
   attributes:
-    label: What Nest devices are you using?
+    label: What Starling Home Hub connected devices are you using?
     description: "Not all devices are supported and so it is important to know what devices you are using."
     value: |
       1.
