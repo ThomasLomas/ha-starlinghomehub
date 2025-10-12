@@ -14,26 +14,9 @@ This is a custom integration for Home Assistant for accessing the [Starling Home
 
 Since v2 of the Starling Home Hub API there is now more widespread support for devices, and as such this may now also include non-Nest devices. To turn devices on/off use your Starling Hub App, or disable in Home Asisstant if you want to keep access for HomeKit.
 
-## Installation
-
-### Install via HACS
-
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=ThomasLomas&repository=ha-starlinghomehub&category=integration)
-
-### Install Manually
-
-1. Using the tool of choice open the directory (folder) for your HA configuration (where you find `configuration.yaml`).
-1. If you do not have a `custom_components` directory (folder) there, you need to create it.
-1. In the `custom_components` directory (folder) create a new folder called `starling_home_hub`.
-1. Download _all_ the files from the `custom_components/starling_home_hub/` directory (folder) in this repository.
-1. Place the files you downloaded in the new directory (folder) you created.
-1. Restart Home Assistant
-1. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Starling Home Hub Integration"
-
 ## Hub Setup
 
 > Ensure you are using the latest firmware (2024.43 or above). You must provide a /v2/ URL for the API integration to work.
-
 > If your cameras are not detecting certain things, such as vehicles, then make sure that vehicle notifications is turned on in your Google Home app. Without notifications the Starling Home Hub won't get updates and thereby Home Assistant won't either.
 
 The SDC API is disabled by default. To enable the API, go to the Starling app, then:
@@ -50,6 +33,39 @@ Access to the API requires creating an API key - one per app - with specific per
 
 To modify an existing API key's permissions or name, hover over the key in My API Keys, then press the edit button.
 
-## Contributions are welcome!
+## Installation
+
+### Install via HACS
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=ThomasLomas&repository=ha-starlinghomehub&category=integration)
+
+### Install Manually
+
+1. Using the tool of choice open the directory (folder) for your HA configuration (where you find `configuration.yaml`).
+1. If you do not have a `custom_components` directory (folder) there, you need to create it.
+1. In the `custom_components` directory (folder) create a new folder called `starling_home_hub`.
+1. Download _all_ the files from the `custom_components/starling_home_hub/` directory (folder) in this repository.
+1. Place the files you downloaded in the new directory (folder) you created.
+1. Restart Home Assistant
+1. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Starling Home Hub Integration"
+
+## Development
+
+### Mock Server
+
+To run a mock server for development purposes, you can use the provided `mockserver` script. This script sets up a virtual environment, installs the required dependencies, and starts the mock server.
+
+```bash
+./scripts/mockserver
+```
+
+#### Integration Properties
+
+| Property     | Value                    |
+|--------------|--------------------------|
+| **Base URL** | `http://127.0.0.1:5000/` |
+| **API Key**  | `test`                   |
+
+## Contributions are welcome
 
 If you want to contribute to this please read the [Contribution guidelines](CONTRIBUTING.md)
