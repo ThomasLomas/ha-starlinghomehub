@@ -1,0 +1,65 @@
+{
+    "status": "OK",
+    "devices": [
+        {
+            "type": "lock",
+            "category": "lock",
+            "id": "lock",
+            "name": "Mock Lock",
+            "model": "Random Lock",
+            "roomId": "70963810-d8a2-4307-8711-fd73dbfbb5b1",
+            "roomName": "Office",
+            "structureId": "19e8172f-2d17-4715-a272-51b702229aba",
+            "structureName": "Home",
+            "serialNumber": "100"
+        },
+        {
+            "type": "thermostat",
+            "category": "thermostat",
+            "id": "thermostat",
+            "name": "Mock thermostat",
+            "model": "ecobee aresSmart",
+            "roomId": "2408bebf-e19a-4b35-9ffe-190e9269cfdd",
+            "roomName": "Living Room",
+            "structureId": "19e8172f-2d17-4715-a272-51b702229aba",
+            "structureName": "Home",
+            "serialNumber": "100"
+        },
+        {
+            "type": "dehumidifier",
+            "category": "humidifier_dehumidifier",
+            "id": "dehumidifier",
+            "name": "Mock dehumidifier",
+            "model": "Random dehumidifier",
+            "roomId": "70963810-d8a2-4307-8711-fd73dbfbb5b1",
+            "roomName": "Office",
+            "structureId": "19e8172f-2d17-4715-a272-51b702229aba",
+            "structureName": "Home",
+            "serialNumber": "100"
+        },
+        {
+            "type": "fan",
+            "category": "fan",
+            "id": "fan",
+            "name": "Patio Fan",
+            "model": "Modern Forms Fan",
+            "roomId": "36e57a14-886f-468f-abe3-e6947a0c3bbd",
+            "roomName": "Garden",
+            "structureId": "19e8172f-2d17-4715-a272-51b702229aba",
+            "structureName": "Home",
+            "serialNumber": "100"
+        },
+        {
+            "type": "fan",
+            "category": "fan",
+            "id": "fannospeed",
+            "name": "Simple Fan",
+            "model": "Modern Forms Fan",
+            "roomId": "36e57a14-886f-468f-abe3-e6947a0c3bbd",
+            "roomName": "Garden",
+            "structureId": "19e8172f-2d17-4715-a272-51b702229aba",
+            "structureName": "Home",
+            "serialNumber": "100"
+        }
+    ]
+}

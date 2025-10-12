@@ -1,0 +1,26 @@
+{
+    "status": "OK",
+    "properties": {
+        "type": "dehumidifier",
+        "category": "humidifier_dehumidifier",
+        "id": "dehumidifier",
+        "name": "Mock dehumidifier",
+        "model": "Random dehumidifier",
+        "roomId": "70963810-d8a2-4307-8711-fd73dbfbb5b1",
+        "roomName": "Office",
+        "structureId": "19e8172f-2d17-4715-a272-51b702229aba",
+        "structureName": "Home",
+        "serialNumber": "100",
+        "isOnline": true,
+        "canHumidify": false,
+        "canDehumidify": true,
+        "currentTemperature": 22.5,
+        "fanSpeed": 75,
+        "humidityPercent": 45,
+        "isOn": true,
+        "maxTargetHumidity": 60,
+        "minTargetHumidity": 30,
+        "state": "dehumidifying",
+        "targetHumidity": 50
+    }
+}
