@@ -1,0 +1,11 @@
+{
+    "apiVersion": 3,
+    "apiReady": true,
+    "connectedToGoogleHome": true,
+    "appName": "Mock App",
+    "permissions": {
+        "read": true,
+        "write": false,
+        "camera": false
+    }
+}

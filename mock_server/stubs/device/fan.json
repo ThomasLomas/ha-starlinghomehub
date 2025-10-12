@@ -1,0 +1,18 @@
+{
+    "status": "OK",
+    "properties": {
+        "type": "fan",
+        "category": "fan",
+        "id": "fan",
+        "name": "Patio Fan",
+        "model": "Modern Forms Fan",
+        "roomId": "36e57a14-886f-468f-abe3-e6947a0c3bbd",
+        "roomName": "Garden",
+        "structureId": "19e8172f-2d17-4715-a272-51b702229aba",
+        "structureName": "Home",
+        "serialNumber": "100",
+        "isOnline": true,
+        "isOn": true,
+        "fanSpeed": 63
+    }
+}
