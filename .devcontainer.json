@@ -1,6 +1,6 @@
 {
     "name": "ThomasLomas/ha-starlinghomehub",
-    "image": "mcr.microsoft.com/devcontainers/python:3.13-bookworm",
+    "image": "mcr.microsoft.com/devcontainers/python:2.0.2-3.13-bookworm",
     "postCreateCommand": "scripts/setup",
     "forwardPorts": [
         8123
