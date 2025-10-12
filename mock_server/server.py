@@ -1,3 +1,5 @@
+"""A mock server to simulate a Starling Home Hub API using Flask."""
+
 import json
 from flask import Flask, jsonify, request
 
@@ -5,6 +7,7 @@ app = Flask(__name__)
 
 
 def load_stub(stub_name):
+    """Load a stub JSON file."""
     with open(f'./stubs/{stub_name}.json') as f:
         stub = json.loads(f.read())
     return stub
@@ -12,21 +15,26 @@ def load_stub(stub_name):
 
 @app.get('/status')
 def get_status():
+    """Get the status of the Starling Home Hub."""
     return jsonify(load_stub('status'))
 
 
 @app.get('/devices')
 def get_devices():
+    """Get a list of all devices."""
     return jsonify(load_stub('devices'))
 
 
 @app.get('/devices/<device_id>')
 def get_device(device_id):
+    """Get a specific device by ID."""
     return jsonify(load_stub(f'device/{device_id}'))
 
 
 @app.post('/devices/<device_id>')
 def update_device(device_id):
+    """Update a specific device by ID."""
+
     request_body = request.json
 
     # Check if device exists
@@ -36,7 +44,7 @@ def update_device(device_id):
         return jsonify({"status": "Error", "code": "DEVICE_NOT_FOUND"}), 400
 
     set_status = {}
-    for key in request_body.keys():
+    for key in request_body:
         set_status[key] = "OK"
         device['properties'][key] = request_body[key]
 
