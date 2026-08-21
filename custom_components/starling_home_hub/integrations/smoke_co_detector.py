@@ -4,7 +4,7 @@ from copy import deepcopy
 
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
-from homeassistant.const import CONCENTRATION_PARTS_PER_MILLION, Platform
+from homeassistant.const import UnitOfRatio, Platform
 
 from custom_components.starling_home_hub.entities.binary_sensor import StarlingHomeHubBinarySensorEntityDescription
 from custom_components.starling_home_hub.entities.sensor import StarlingHomeHubSensorEntityDescription
@@ -40,7 +40,7 @@ SMOKE_CO_DETECTOR_PLATFORMS[Platform.SENSOR].extend([
         name="Carbon Monoxide Concentration",
         relevant_fn=lambda device: "coLevel" in device,
         value_fn=lambda device: device["coLevel"],
-        native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
+        native_unit_of_measurement=UnitOfRatio.PARTS_PER_MILLION,
         device_class=SensorDeviceClass.CO,
         state_class=SensorStateClass.MEASUREMENT,
     ),

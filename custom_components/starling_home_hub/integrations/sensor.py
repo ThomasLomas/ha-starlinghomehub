@@ -2,8 +2,8 @@
 
 from homeassistant.components.binary_sensor import BinarySensorDeviceClass
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
-from homeassistant.const import (CONCENTRATION_MICROGRAMS_PER_CUBIC_METER, CONCENTRATION_PARTS_PER_MILLION, LIGHT_LUX, PERCENTAGE, Platform,
-                                 UnitOfTemperature)
+from homeassistant.const import (
+    UnitOfRatio, LIGHT_LUX, PERCENTAGE, Platform, UnitOfTemperature, UnitOfDensity)
 
 from custom_components.starling_home_hub.entities.binary_sensor import StarlingHomeHubBinarySensorEntityDescription
 from custom_components.starling_home_hub.entities.sensor import StarlingHomeHubSensorEntityDescription
@@ -32,7 +32,7 @@ SENSOR_PLATFORMS = from_base_entities({
             name="Carbon Dioxide Level",
             relevant_fn=lambda device: "carbonDioxideLevel" in device,
             value_fn=lambda device: device["carbonDioxideLevel"],
-            native_unit_of_measurement=CONCENTRATION_PARTS_PER_MILLION,
+            native_unit_of_measurement=UnitOfRatio.PARTS_PER_MILLION,
             device_class=SensorDeviceClass.CO2,
             state_class=SensorStateClass.MEASUREMENT,
         ),
@@ -59,7 +59,7 @@ SENSOR_PLATFORMS = from_base_entities({
             name="PM10 Density",
             relevant_fn=lambda device: "pm10Density" in device,
             value_fn=lambda device: device["pm10Density"],
-            native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+            native_unit_of_measurement=UnitOfDensity.MICROGRAMS_PER_CUBIC_METER,
             device_class=SensorDeviceClass.PM10,
             state_class=SensorStateClass.MEASUREMENT,
         ),
@@ -68,7 +68,7 @@ SENSOR_PLATFORMS = from_base_entities({
             name="PM25 Density",
             relevant_fn=lambda device: "pm25Density" in device,
             value_fn=lambda device: device["pm25Density"],
-            native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+            native_unit_of_measurement=UnitOfDensity.MICROGRAMS_PER_CUBIC_METER,
             device_class=SensorDeviceClass.PM25,
             state_class=SensorStateClass.MEASUREMENT,
         ),
@@ -77,7 +77,7 @@ SENSOR_PLATFORMS = from_base_entities({
             name="VOC Density",
             relevant_fn=lambda device: "vocDensity" in device,
             value_fn=lambda device: device["vocDensity"],
-            native_unit_of_measurement=CONCENTRATION_MICROGRAMS_PER_CUBIC_METER,
+            native_unit_of_measurement=UnitOfDensity.MICROGRAMS_PER_CUBIC_METER,
             device_class=SensorDeviceClass.VOLATILE_ORGANIC_COMPOUNDS,
             state_class=SensorStateClass.MEASUREMENT,
         ),
